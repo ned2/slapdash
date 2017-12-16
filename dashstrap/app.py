@@ -6,9 +6,8 @@ import dash_core_components as dcc
 import dash_html_components as html
 
 # Uncomment the line below to make this a single page app by enabling the router
-# callback. Customise the routes for app in the ROUTES attribute of router.py
-# import .router
-from .components import Col, Row
+# callback. Customise the routes for your app in the ROUTES attribute of router.py
+#import .router
 
 
 CONTAINER_ID = 'main-container'
