@@ -9,6 +9,15 @@ def add_class(className, args_dict):
         args_dict['className'] = className
 
         
+def add_base_styles(styles, args_dict):
+    if 'style' in args_dict:
+        styles.update(args_dict['style'])
+    args_dict['style'] = styles 
+
+
+
+
+    
 def Row(children=None, **kwargs):
     add_class('row', kwargs)
     return html.Div(children=children, **kwargs)
@@ -23,3 +32,7 @@ def Col(children=None, bp=None, size=None, **kwargs):
         col_class = f'col-{bp}-{size}'
     add_class(col_class, kwargs)
     return html.Div(children=children, **kwargs)
+
+
+def FontA(name):
+    return html.I(className=f"fa {name}")

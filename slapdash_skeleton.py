@@ -1,21 +1,14 @@
-import argparse
-
 from dash import Dash
 from dash.dependencies import Input, State, Output, Event
 import dash_core_components as dcc
 import dash_html_components as html
 
-# Uncomment the line below to make this a single page app by enabling the router
-# callback. Customise the routes for your app in the ROUTES attribute of router.py
-#import .router
-
-
-CONTAINER_ID = 'main-container'
 
 app = Dash()
-app.layout = html.Div(
-    id=CONTAINER_ID,
-    children=[
+app.title = 'Slapdash Skeleton'
+
+
+app.layout = html.Div([
         # TODO
         html.Div(id='target'),
         dcc.Input(id='input', type='text', value=''),
@@ -31,4 +24,4 @@ def callback(n_clicks, state):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server()

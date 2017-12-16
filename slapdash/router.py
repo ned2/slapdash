@@ -1,5 +1,5 @@
-from app import app, CONTAINER_ID
-from layouts import layout1, layout2, layout3
+from .slapdash import app, CONTAINER_ID
+from .layouts import layout1, layout2, layout3
 
 
 ROUTES = {
