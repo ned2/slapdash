@@ -1,4 +1,4 @@
-"""A Skeleton template for creating Plotly Dash apps.
+"""A Skeleton template for bootstrapping creation of Plotly Dash apps.
 
 Some useful references:
 
@@ -37,10 +37,11 @@ chart with their frequency as you type."""),
     html.Div(
         dcc.Textarea(
             id='text-input',
-            value='Type Text into me',
-            style={'width':'40em'},
+            value='Type some text into me!',
+            style={'width':'40em', 'height': '5em'},
         )
     ),
+    html.Div('Normalize character case?'),
     dcc.RadioItems(
         id='normalize',
         options=[
@@ -79,7 +80,8 @@ def callback(text, normalize):
         ],
         'layout': {
             'title': 'Frequency of Characters',
-            'height': '600'
+            'height': '600',
+            'font': {'size': 16}
         }
     }
 
