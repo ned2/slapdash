@@ -1,20 +1,8 @@
 """A demo app that can be used as a skeleton template for bootstrapping the
 creation of simple Plotly Dash apps.
 
-Some useful references:
-
-1. The Dash User Guide
-   https://plot.ly/dash
-
-2. Plotly Python client figure reference -- documents the contents of
-   plotly.graph_objs, which contains the different types of charts available, as
-   well the Layout class, for customising the appearance of charts.
-   https://plot.ly/python/reference
-
-3. The Dash Community Forum
-   https://community.plot.ly/c/dash
-
 """
+
 from collections import Counter
 
 from dash import Dash
