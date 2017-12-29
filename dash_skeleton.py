@@ -1,4 +1,5 @@
-"""A Skeleton template for bootstrapping the creation of simple Plotly Dash apps.
+"""A demo app that can be used as a skeleton template for bootstrapping the
+creation of simple Plotly Dash apps.
 
 Some useful references:
 
@@ -32,7 +33,7 @@ app.title = 'Dash Skeleton'
 
 app.layout = html.Div([
     dcc.Markdown("""
-# Dash Skeleton app
+# Dash Demo app
 
 This demo app counts the number of characters in the text box and updates a bar
 chart with their frequency as you type."""),

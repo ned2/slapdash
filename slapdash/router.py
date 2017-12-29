@@ -1,16 +1,21 @@
-from .slapdash import app, CONTAINER_ID
-from .layouts import layout1, layout2, layout3
+from dash.dependencies import Output, Input
+
+from .server import app
+from .layouts import page_not_found, page1, page2, page3
+from . import settings
 
 
-ROUTES = {
-    '/page1': layout1,
-    '/page2': layout2,
-    '/page3': layout3,
+routes = {
+    '/': page1,
+    '/page1': page1,
+    '/page2': page2,
+    '/page3': page3,
 }
 
 
-# The router
-@app.callback(Output(CONTAINER_ID, 'children'), [Input('url', 'pathname')])
+# The router callback
+@app.callback(Output(settings.CONTAINER_ID, 'children'),
+              [Input('url', 'pathname')])
 def router(pathname):
-    default_layout = html.P("No page '{}'".format(pathname))
-    return ROUTES.get(pathname, default_layout)
+    default_layout = page_not_found(pathname)
+    return routes.get(pathname, default_layout)

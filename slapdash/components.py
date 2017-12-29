@@ -19,11 +19,13 @@ def add_base_styles(styles, args_dict):
 
     
 def Row(children=None, **kwargs):
+    """A convenience component for adding Bootstrap Rows"""
     add_class('row', kwargs)
     return html.Div(children=children, **kwargs)
 
     
 def Col(children=None, bp=None, size=None, **kwargs):
+    """A convenience component for adding Bootstrap columns"""
     if size is None and bp is None:
         col_class = 'col'
     elif bp is None:
@@ -34,5 +36,6 @@ def Col(children=None, bp=None, size=None, **kwargs):
     return html.Div(children=children, **kwargs)
 
 
-def FontA(name):
+def Fa(name):
+    """A convenience component for adding Font Awesome icons"""
     return html.I(className=f"fa {name}")
