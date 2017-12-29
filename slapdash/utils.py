@@ -1,13 +1,14 @@
 from dash import Dash
 
-from . import settings
+from .settings import STATIC_URL_PATH, STYLESHEETS
 
 
 class CustomIndexDash(Dash):
     """Custom Dash class overriding index() method for local CSS support"""
     def _generate_css_custom_html(self):
-        return '\n'.join(f'<link rel="stylesheet" href="{href}">'
-                         for href in settings.STYLESHEETS)
+        link_str = '<link rel="stylesheet" href="{}/{}">'
+        return '\n'.join(link_str.format(STATIC_URL_PATH, path)
+                         for path in STYLESHEETS)
 
     def index(self, *args, **kwargs):
         scripts = self._generate_scripts_html()
