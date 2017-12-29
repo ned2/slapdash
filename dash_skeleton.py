@@ -1,4 +1,4 @@
-"""A Skeleton template for bootstrapping creation of Plotly Dash apps.
+"""A Skeleton template for bootstrapping the creation of simple Plotly Dash apps.
 
 Some useful references:
 
@@ -27,6 +27,8 @@ import plotly.graph_objs as go
 app = Dash()
 app.title = 'Dash Skeleton'
 
+# If you need to run your app locally
+#app.scripts.config.serve_locally = True
 
 app.layout = html.Div([
     dcc.Markdown("""
