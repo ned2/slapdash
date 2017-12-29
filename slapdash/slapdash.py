@@ -20,7 +20,7 @@ STATIC_URL_PATH = '/static'
 CONTAINER_ID = 'dash-container'
 
 # The style sheets you want to include in every page of the app. These are
-# relative to the STATIC directory
+# relative to the STATIC_URL_PATH
 STYLESHEETS = [
     'bootstrap.min.css',
     'font-awesome/css/font-awesome.css',
@@ -57,7 +57,7 @@ app.layout = html.Div(sheets + [
 # rather than with Flask, as we're doing here.
 
 
-@app.server.route('/static/<path:path>')
+@app.server.route(f'{STATIC_URL_PATH}/<path:path>')
 def send_static(path):
     return send_from_directory(STATIC_PATH, path)
 

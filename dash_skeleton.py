@@ -41,6 +41,15 @@ chart with their frequency as you type."""),
             style={'width':'40em', 'height': '5em'},
         )
     ),
+    html.Div('Sort by:'),
+    dcc.RadioItems(
+        id='sort-type',
+        options=[
+            {'label': 'Frequency', 'value': 'frequency'},
+            {'label': 'Character code', 'value': 'code'},
+        ],
+        value='frequency'
+    ),
     html.Div('Normalize character case?'),
     dcc.RadioItems(
         id='normalize',
@@ -55,15 +64,22 @@ chart with their frequency as you type."""),
 
 
 @app.callback(
-    Output('graph', 'figure'),                                    # Output
-    [Input('text-input', 'value'), Input('normalize', 'value')],  # Inputs
-    [],                                                           # States
-    []                                                            # Events
+    Output('graph', 'figure'),      # Output
+    [Input('text-input', 'value'),  # Inputs
+     Input('sort-type', 'value'),
+     Input('normalize', 'value')],  
+    [],                             # States
+    []                              # Events
 )
-def callback(text, normalize):
+def callback(text, sort_type, normalize):
     if normalize == 'yes':
         text = text.lower()
 
+    if sort_type == 'frequency':
+        sort_func = lambda x:-x[1]
+    else:
+        sort_func = lambda x:ord(x[0])
+        
     counts = Counter(text)
 
     if len(counts) == 0:
@@ -72,8 +88,8 @@ def callback(text, normalize):
     else:
         x_data, y_data = zip(*sorted(
             counts.items(),
-            reverse=True,
-            key=lambda x:x[1]))
+            key=sort_func))
+
     return {
         'data': [
             {'x': x_data, 'y':y_data, 'type': 'bar', 'name': 'trace1'},
