@@ -15,15 +15,17 @@ def component(func):
     @wraps(func)
     def function_wrapper(*args, **kwargs):
         # remove className and style args from input kwargs so the component
-        # function does not have to worry about clobbering them/
+        # function does not have to worry about clobbering them.
         className = kwargs.pop('className', None)
         style = kwargs.pop('className', None)
-
+        children = kwargs.pop('children', None)
+        
         # call the component function and get the result
         result = func(*args, **kwargs)
 
         # now restore the initial classes and styles by adding them
         # to any values the component introduced
+
         if className is not None:
             if hasattr(result, 'className'):
                 result.className = f'{className} {result.className}'
@@ -35,6 +37,13 @@ def component(func):
                 result.style = style.update(result.style)
             else:
                 result.style = style
+
+        # pass through the children attribute, only if the new component did not
+        # set it.
+        if children is not None:
+            if not hasattr(result, 'children'):
+                result.children = children
+                
 
         return result
     return function_wrapper
