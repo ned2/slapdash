@@ -24,29 +24,29 @@ def Col(children=None, bp=None, size=None, **kwargs):
 
 
 @component
-def Navbar(items, home=None, orientation='top', active_path=None):
-    li_className = 'nav-item'
+def Navbar(items, title=None, orientation='top', active_path=None):
     nav_items = []
     
     for path, text in items:
         href = get_url(path)
         is_active = href == active_path
-        className = '{li_className} active' if is_active else li_className
-        li = html.Li(
+        className = 'nav-item active' if is_active else 'nav-item'
+        nav_items.append(html.Li(
             className=className,
             children=dcc.Link(text, href=href, className='nav-link')
-        )
-        nav_items.append(li)
+        ))
+
     return html.Nav(
-        className=f'navbar {orientation}',
+        className=f'navbar {orientation}-nav',
         children=[
-            dcc.Link(home, className='home') if home else html.Div(),
+            dcc.Link(html.H1(title, className='title')) if title else html.Div(),
             html.Ul(
-                className='navigation',
+                className=f'nav',
                 children=nav_items
             ),
         ]
     )
+
 
 
 def Fa(name):

@@ -1,0 +1,24 @@
+body {
+    /* Problem is that this needs to only apply for top navbar*/
+    padding-top: 4.5rem;
+}
+
+.navbar {
+    background-color: black;
+    color: white;
+}
+
+.navbar h1 { margin-bottom: 0}
+
+nav.top-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1010;
+}
+
+.top-nav .nav-item {font-size: 1.1em;}
+
+.side-nav {}
+

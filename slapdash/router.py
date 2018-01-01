@@ -39,7 +39,7 @@ if NAVBAR:
         # note: pathname is None on the first load of the app for some reason
         return Navbar(
             NAV_ITEMS,
-            home=TITLE,
+            title=TITLE,
             orientation=NAVBAR,
             active_path=pathname
         )
