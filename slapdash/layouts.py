@@ -3,38 +3,8 @@ import dash_html_components as html
 
 from .exceptions import ValidationError
 from .components import Col, Row
-from .settings import (TITLE, CONTENT_CONTAINER_ID, URL_BASE_PATHNAME,
+from .settings import (CONTENT_CONTAINER_ID, URL_BASE_PATHNAME,
                        NAVBAR_CONTAINER_ID, NAV_ITEMS, NAVBAR)
-
-
-def nav_items(items, active_path=None):
-    li_className = 'nav-item'
-    nav_items = []
-    
-    for path, text in items:
-        href = f"{URL_BASE_PATHNAME}{path}"
-        is_active = href == active_path
-        className = '{li_className} active' if is_active else li_className
-        li = html.Li(
-            className=className,
-            children=dcc.Link(text, href=href, className='nav-link')
-        )
-        nav_items.append(li)
-    return nav_items
-
-
-def navbar(orientation='top', active_path=None):
-    return html.Nav(
-        id='top-navbar',
-        className=f'navbar {orientation}',
-        children=[
-            dcc.Link(TITLE, className='name'),
-            html.Ul(
-                className='navigation',
-                children=nav_items(NAV_ITEMS, active_path=active_path)
-            ),
-        ]
-    )
 
 
 def main_layout_top_nav():
