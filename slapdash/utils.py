@@ -2,7 +2,12 @@ from functools import wraps
 
 from dash import Dash
 
-from .settings import STATIC_URL_PATH, STYLESHEETS
+from .settings import STATIC_URL_PATH, STYLESHEETS, URL_BASE_PATHNAME
+
+
+def get_url(path):
+    """Expands the an internal URL to include prefix the app is mounted at """
+    return f"{URL_BASE_PATHNAME}{path}"
 
 
 def component(func):

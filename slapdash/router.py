@@ -3,9 +3,9 @@ from dash.dependencies import Output, Input
 from .server import app
 from .pages import page_not_found, page1, page2, page3
 from .settings import (CONTENT_CONTAINER_ID, NAVBAR_CONTAINER_ID,
-                       URL_BASE_PATHNAME, NAVBAR)
+                       URL_BASE_PATHNAME, NAVBAR, NAV_ITEMS, TITLE)
 from .components import Navbar
-
+from .utils import get_url
 
 # Ordered iterable of routes: tuples of (route, layout), where 'route' is a
 # string corresponding to path of the route (will be prefixed with
@@ -18,8 +18,7 @@ urls = (
 )
 
 
-routes = {f'{URL_BASE_PATHNAME}{route}': layout
-          for route, layout in urls}
+routes = {get_url(route): layout for route, layout in urls}
 
 
 # The router callback
@@ -38,6 +37,10 @@ if NAVBAR:
         [Input('url', 'pathname')])
     def update_nav(pathname):
         # note: pathname is None on the first load of the app for some reason
-        print('ss')
-        return Navbar(name=TITLE, orientation=NAVBAR, active_path=pathname)
+        return Navbar(
+            NAV_ITEMS,
+            home=TITLE,
+            orientation=NAVBAR,
+            active_path=pathname
+        )
     
