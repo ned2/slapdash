@@ -1,6 +1,7 @@
 import dash_core_components as dcc
 import dash_html_components as html
 
+from .exceptions import ValidationError
 from .components import Col, Row
 from .settings import (TITLE, CONTENT_CONTAINER_ID, URL_BASE_PATHNAME,
                        NAVBAR_CONTAINER_ID, NAV_ITEMS, NAVBAR)
@@ -82,7 +83,8 @@ def main_layout_no_nav():
 def main_layout():
     """Gets the main layout according to the NAVBAR setting."""    
     if NAVBAR not in ('side', 'top', None):
-        raise Exception("Invalid value {} for NAVBAR; should be 'side', 'top', or None")
+        msg = f"Invalid value {NAVBAR} for NAVBAR; should be 'side', 'top', or None"
+        raise ValidationError(msg)
     
     if NAVBAR == 'side':
         return main_layout_side_nav()
