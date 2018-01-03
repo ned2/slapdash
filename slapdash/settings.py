@@ -1,10 +1,10 @@
-# Your Apps title
+# Your App's title
 TITLE = 'Slapdash'
 
 # URL PREFIX the the app will be mounted at. Must start with '/'
 URL_BASE_PATHNAME = '/'
 
-# where your static files live relative to the top level op the package
+# where your static files live relative to the top level of the package
 STATIC_FOLDER = 'static'
 
 # The URL your static files will be mounted at 
@@ -21,6 +21,7 @@ STYLESHEETS = [
     'slapdash.css',
     'bootstrap.min.css',
     'font-awesome/css/font-awesome.css',
+    'custom.css'
 ]
 
 # Boolean that indicates whether to insert a navigation bar into the

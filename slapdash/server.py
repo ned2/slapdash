@@ -25,15 +25,6 @@ app = CustomIndexDash(
 app.config.supress_callback_exceptions = True
 
 
-# Note that for a scalable app that needs to serve a large number of users, you
-# should serve your static assets with a web server such as nginx or Apache,
-# rather than with Flask, as we're doing here.
-
-# @server.route(f'{settings.STATIC_URL_PATH}/<path:path>')
-# def send_static(path):
-#     return send_from_directory(settings.STATIC_FOLDER, path)
-
-
 @server.route('/favicon.ico')
 def favicon():
     """Serve the favicon"""
@@ -46,5 +37,6 @@ def favicon():
 
 @server.errorhandler(HaltCallback)
 def handle_error(error):
+    """Handle a halted callback and return an empty 204 response"""
     print(error, file=sys.stderr)
     return ('', 204)
