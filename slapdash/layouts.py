@@ -2,15 +2,24 @@ import dash_core_components as dcc
 import dash_html_components as html
 
 from .exceptions import ValidationError
-from .components import Col, Row
+from .components import Col, Row, Header
 from .settings import (CONTENT_CONTAINER_ID, URL_BASE_PATHNAME,
                        NAVBAR_CONTAINER_ID, NAV_ITEMS, NAVBAR)
 
+"""Contains layouts suitable for being the value of the 'layout' attribute of
+Dash app instances. """
 
-def main_layout_top_nav():
-    """Top level Dash layout with a top navbar"""
+
+def main_layout_header():
+    """Dash layout with a top-header"""
     return html.Div([
-        html.Div(id=NAVBAR_CONTAINER_ID),
+        html.Div(
+            id="header",
+            children=[
+                Header(),
+                html.Div(id=NAVBAR_CONTAINER_ID),
+            ]
+        ),
         html.Div(
             className='container-fluid',
             children=Row(
@@ -21,13 +30,18 @@ def main_layout_top_nav():
     ])
 
 
-def main_layout_side_nav():
-    """Top level Dash layout with a side navbar"""
+def main_layout_sidebar():
+    """Dash layout with a sidebar"""
     return html.Div([
         html.Div(
             className='container-fluid',
             children=Row([
-                Col(id=NAVBAR_CONTAINER_ID, size=2),
+                Col(
+                    size=2,
+                    children=[
+                        Row(Col(Header())),
+                        Row(Col(id=NAVBAR_CONTAINER_ID))
+                    ]),
                 Col(
                     id=CONTENT_CONTAINER_ID,
                     size=10,
@@ -39,26 +53,14 @@ def main_layout_side_nav():
     ])
 
 
-def main_layout_no_nav():
-    """Top level Dash layout with no navbar"""
+def main_layout_fullpage():
+    """Top level Dash layout taking up entire """
     return html.Div([
         html.Div(
             className='container-fluid',
-            id=CONTENT_CONTAINER_ID,            
+            children=Row(
+                Col(id=CONTENT_CONTAINER_ID)
+            )
         ),
         dcc.Location(id='url', refresh=False),
     ])
-
-
-def main_layout():
-    """Gets the main layout according to the NAVBAR setting."""    
-    if NAVBAR not in ('side', 'top', None):
-        msg = f"Invalid value {NAVBAR} for NAVBAR; should be 'side', 'top', or None"
-        raise ValidationError(msg)
-    
-    if NAVBAR == 'side':
-        return main_layout_side_nav()
-    elif NAVBAR == 'top':
-        return main_layout_top_nav()
-    else:
-        return main_layout_no_nav()

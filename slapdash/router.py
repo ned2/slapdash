@@ -37,10 +37,10 @@ if NAVBAR:
         [Input('url', 'pathname')])
     def update_nav(pathname):
         # note: pathname is None on the first load of the app for some reason
+        # https://github.com/plotly/dash-core-components/issues/138
         return Navbar(
             NAV_ITEMS,
             title=TITLE,
             orientation=NAVBAR,
-            active_path=pathname
+            current_path=pathname
         )
-    

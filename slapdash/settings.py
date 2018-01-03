@@ -23,8 +23,9 @@ STYLESHEETS = [
     'font-awesome/css/font-awesome.css',
 ]
 
-# The type of navbar. Can be one of 'top', 'side', or None
-NAVBAR = 'top'
+# Boolean that indicates whether to insert a navigation bar into the
+# header/sidebar.
+NAVBAR = True
 
 # Ordered iterable of navbar items: tuples of (route, name), where 'route' is a
 # string corresponding to path of the route (will be prefixed with

@@ -3,22 +3,59 @@ body {
     padding-top: 4.5rem;
 }
 
-.navbar {
+
+/* Default link colours */
+a {color: #0275d8 !important}
+a:hover {color: #014c8c !important}
+
+/* All links generated through Dash should have pointer for hover */
+a.link:hover {cursor: pointer}
+
+/* We embed a regular anchor tag inside Dash links so it has an href which
+Bootstrap link-like anchor styles depend and so that the target url can be
+copied. This means we need to disable events on the inner anchor so as to not
+trigger a page-load when clicked. */
+a.link a {pointer-events: none}
+
+header {margin-left: 0.5em;}
+
+/* Header*/
+
+#header {
+    background-color: black;
+    color: white;
+    display: flex;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1010;
+}
+
+#header a {color: white !important;}
+
+#header h1 {
+    margin-bottom: 0;
+    line-height: inherit;
+    color: white;
+}
+
+#header .nav-item {font-size: 1.1em;}
+#header .navbar a:hover, .navbar a:focus {text-decoration: underline}
+#header .nav-item.active {text-decoration: underline}
+
+
+/* Sidebar */
+#sidebar {
     background-color: black;
     color: white;
 }
 
-.navbar h1 { margin-bottom: 0}
+#sidebar .navbar a:hover, .navbar a:focus {text-decoration: underline}
+#sidebar .nav-item.active {text-decoration: underline}
 
-nav.top-nav {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 1010;
-}
 
-.top-nav .nav-item {font-size: 1.1em;}
 
-.side-nav {}
+
+
 
