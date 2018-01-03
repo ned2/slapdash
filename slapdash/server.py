@@ -1,30 +1,27 @@
 import os
+import sys
 
 from flask import Flask, send_from_directory
 
 from .utils import CustomIndexDash
-from . import settings
+from .settings import STATIC_FOLDER, STATIC_URL_PATH, URL_BASE_PATHNAME
+from .exceptions import HaltCallback
 
 
 server = Flask(
     __name__,
-    static_folder=settings.STATIC_FOLDER,
-    static_url_path=settings.STATIC_URL_PATH
+    static_folder=STATIC_FOLDER,
+    static_url_path=STATIC_URL_PATH
 )
 
 app = CustomIndexDash(
     __name__,
     server=server,
-    url_base_pathname=settings.URL_BASE_PATHNAME
+    url_base_pathname=URL_BASE_PATHNAME
 )
-# import dash_html_components as html
-# import dash_core_components as dcc
-# app.layout = html.Div([
-#     html.Div(id=settings.CONTAINER_ID),
-#     dcc.Location(id='url', refresh=False)
-# ])
 
-
+# We need to suppress validations as we will be initialising callbacks
+# that target element IDs that won't yet occur in the layout. 
 app.config.supress_callback_exceptions = True
 
 
@@ -41,7 +38,13 @@ app.config.supress_callback_exceptions = True
 def favicon():
     """Serve the favicon"""
     return send_from_directory(
-        os.path.join(server.root_path, settings.STATIC_FOLDER),
+        os.path.join(server.root_path, STATIC_FOLDER),
         'favicon.ico',
         mimetype='image/x-icon'
     )
+
+
+@server.errorhandler(HaltCallback)
+def handle_error(error):
+    print(error, file=sys.stderr)
+    return ('', 204)

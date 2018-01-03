@@ -5,3 +5,9 @@ class SlapdashBaseException(Exception):
 class ValidationError(SlapdashBaseException):
     pass
 
+
+class HaltCallback(SlapdashBaseException):
+    pass
+
+
+
