@@ -8,7 +8,7 @@ from .settings import URL_BASE_PATHNAME, TITLE
 @component
 def Row(*args, **kwargs):
     """A convenience component that makes a Bootstrap row"""
-    return html.Div(*args, className='row', **kwargs)
+    return html.Div(children=args[0], className='row', **kwargs)
 
 
 @component  
@@ -20,7 +20,10 @@ def Col(*args, bp=None, size=None, **kwargs):
         col_class = f'col-{size}'
     else:        
         col_class = f'col-{bp}-{size}'
-
+    if len(args) > 0:
+        children=args[0]
+    else:
+        children = None
     return html.Div(*args, className=col_class, **kwargs)
 
 
@@ -34,10 +37,9 @@ def Header(**kwargs):
         **kwargs
     ))
     
-    
+
 @component
-def Navbar(items, orientation='top', current_path=None,
-           first_root_nav=True, **kwargs):
+def Navbar(items, current_path=None, first_root_nav=True, **kwargs):
     nav_items = []
     
     for i, (path, text) in enumerate(items):
@@ -54,7 +56,7 @@ def Navbar(items, orientation='top', current_path=None,
         ))
 
     return html.Nav(
-        className=f'navbar {orientation}-nav',
+        className=f'navbar',
         children=[
             html.Ul(
                 className=f'nav',

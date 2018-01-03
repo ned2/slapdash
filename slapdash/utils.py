@@ -40,9 +40,8 @@ def component(func):
 
         # pass through the children attribute, only if the new component did not
         # set it.
-        if children is not None:
-            if not hasattr(result, 'children'):
-                result.children = children
+        if children is not None and hasattr(result, 'children'):
+            result.children = children
                 
 
         return result
