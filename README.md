@@ -21,9 +21,10 @@ single-file applications.
 3. Create  your pages in `pages.py`.
 4. Add your pages to the `urls` attribute in `router.py`.
 5. Add desired pages to `NAV_ITEMS` (if using a navbar) in `settings.py`.
-6. Modify any additional settings in settings.py as desired. (The only other one
+6. Add additional CSS to `static/custom.css`. 
+7. Modify any additional settings in settings.py as desired. (The only other one
    you will likely definitely need to change is TITLE).
-7. Run the app either with `python run_flask.py (--debug)` or by targeting a
+8. Run the app either with `python run_flask.py (--debug)` or by targeting a
    WSGI server at `wsgi.py`.
 
 
@@ -69,19 +70,15 @@ you can pull down and start hacking on with minimal overhead.
 
 ## Useful References
 
-1. The Dash User Guide
-   https://plot.ly/dash
+1. [The Dash User Guide](https://plot.ly/dash)
+   
+2. [Plotly Python client figure reference](https://plot.ly/python/reference)
+   Documents the contents of plotly.graph_objs, which contains the different
+   types of charts available, as well the Layout class, for customising the
+   appearance of charts.
 
-2. Plotly Python client figure reference -- documents the contents of
-   plotly.graph_objs, which contains the different types of charts available, as
-   well the Layout class, for customising the appearance of charts.
-   https://plot.ly/python/reference
+3. [The Dash Community Forum](https://community.plot.ly/c/dash)
 
-3. The Dash Community Forum
-   https://community.plot.ly/c/dash
+4. [Dash Show and Tell Community Thread](https://community.plot.ly/t/show-and-tell-community-thread-tada)
 
-4. Dash Show and Tell Community Thread
-   https://community.plot.ly/t/show-and-tell-community-thread-tada
-
-4. The Dash GitHub Repository
-   https://github.com/plotly/dash
+4. [The Dash GitHub Repository](https://github.com/plotly/dash)
