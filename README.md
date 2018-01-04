@@ -80,5 +80,8 @@ you can pull down and start hacking on with minimal overhead.
 3. The Dash Community Forum
    https://community.plot.ly/c/dash
 
+4. Dash Show and Tell Community Thread
+   https://community.plot.ly/t/show-and-tell-community-thread-tada
+
 4. The Dash GitHub Repository
    https://github.com/plotly/dash
