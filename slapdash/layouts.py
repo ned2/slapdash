@@ -30,6 +30,7 @@ def main_layout_header():
     ])
 
 
+# NOTE: not quite working yet
 def main_layout_sidebar():
     """Dash layout with a sidebar"""
     return html.Div([
@@ -54,7 +55,7 @@ def main_layout_sidebar():
 
 
 def main_layout_fullpage():
-    """Top level Dash layout taking up entire """
+    """Top level Dash layout taking up entire window"""
     return html.Div([
         html.Div(
             className='container-fluid',
