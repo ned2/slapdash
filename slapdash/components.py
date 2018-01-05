@@ -1,8 +1,8 @@
 import dash_core_components as dcc
 import dash_html_components as html
 
+from .server import server
 from .utils import component, get_url
-from .settings import URL_BASE_PATHNAME, TITLE
 
 
 @component
@@ -31,8 +31,8 @@ def Col(*args, bp=None, size=None, **kwargs):
 def Header(**kwargs):
     return html.Header(html.H1(
         children=[
-            Fa('bar-chart'),
-            Link(TITLE, href=URL_BASE_PATHNAME)
+            Fa('bar-chart'), 
+            Link(server.config['TITLE'], href=server.config['URL_BASE_PATHNAME'])
         ],
         **kwargs
     ))
@@ -44,11 +44,12 @@ def Navbar(items, current_path=None, first_root_nav=True, **kwargs):
     
     for i, (path, text) in enumerate(items):
         href = get_url(path)
-        # we are on the root url and  this is the first nav item
-        is_first_root_nav = current_path == URL_BASE_PATHNAME and i == 0
+        url_base_pathname = server.config['URL_BASE_PATHNAME']
+        # bool indicating if: on the root url and this is the first nav item       
+        is_first_root_nav = (current_path == url_base_pathname) and (i == 0)
         # active if we are on the path of this nav item, or if first_root_nav is
         # enabled and applies for this path
-        is_active = current_path == href or (first_root_nav and is_first_root_nav) 
+        is_active = (current_path == href) or (first_root_nav and is_first_root_nav) 
         className = 'nav-item active' if is_active else 'nav-item'
         nav_items.append(html.Li(
             className=className,

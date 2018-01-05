@@ -2,8 +2,6 @@ from dash.dependencies import Output, Input
 
 from .server import app, server
 from .pages import page_not_found, page1, page2, page3
-from .settings import (CONTENT_CONTAINER_ID, NAVBAR_CONTAINER_ID,
-                       URL_BASE_PATHNAME, NAVBAR, NAV_ITEMS, TITLE)
 from .components import Navbar
 from .utils import get_url
 from .exceptions import HaltCallback
@@ -23,22 +21,20 @@ urls = (
 routes = {get_url(route): layout for route, layout in urls}
 
 
-# The router callback
-@app.callback(Output(CONTENT_CONTAINER_ID, 'children'),
+@app.callback(Output(server.config['CONTENT_CONTAINER_ID'], 'children'),
               [Input('url', 'pathname')])
 def router(pathname):
+    """The router"""
     default_layout = page_not_found(pathname)
     return routes.get(pathname, default_layout)
 
 
-if NAVBAR:
-    # Callback that regenerates navbar with current page as active when the URL
-    # of the app changes.
-    @app.callback(
-        Output(NAVBAR_CONTAINER_ID, 'children'), [Input('url', 'pathname')])
+if server.config['NAVBAR']:
+    @app.callback(Output(server.config['NAVBAR_CONTAINER_ID'], 'children'),
+                  [Input('url', 'pathname')])
     def update_nav(pathname):
-        # note: pathname is None on the first load of the app for some reason
-        # https://github.com/plotly/dash-core-components/issues/138
+        """Create the navbar with the current page set to active"""
         if pathname is None:
+            # pathname is None on the first load of the app; ignore this
             raise HaltCallback("Ignoring first url.pathname callback")
-        return Navbar(NAV_ITEMS, current_path=pathname)
+        return Navbar(server.config['NAV_ITEMS'], current_path=pathname)

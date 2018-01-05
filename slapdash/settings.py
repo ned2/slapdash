@@ -1,14 +1,16 @@
+# These parameters will be passed to the 'config' attribute of the Flask
+# instance used by the Dash app. They must be in UPPER CASE in order to take
+# effect. For more information see http://flask.pocoo.org/docs/config.
+
+# 
+# Config For your app 
+#
+
 # Your App's title
 TITLE = 'Slapdash'
 
 # URL PREFIX the the app will be mounted at. Must start with '/'
 URL_BASE_PATHNAME = '/'
-
-# where your static files live relative to the top level of the package
-STATIC_FOLDER = 'static'
-
-# The URL your static files will be mounted at 
-STATIC_URL_PATH = '/static'
 
 # The ID of the element used to inject each page of the multi-page app into
 CONTENT_CONTAINER_ID = 'dash-container'
@@ -37,3 +39,17 @@ NAV_ITEMS = (
     ('page2', 'Page 2'),
     ('page3', 'Page 3'),
 )
+
+# Add you own parameters here
+
+
+#
+# Flask internal parameters
+# For list of available params, see: http://flask.pocoo.org/docs/config 
+#
+
+# where your static files live relative to the top level of the package
+STATIC_FOLDER = 'static'
+
+# The URL your static files will be mounted at 
+STATIC_URL_PATH = '/static'

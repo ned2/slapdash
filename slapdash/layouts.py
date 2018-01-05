@@ -3,11 +3,11 @@ import dash_html_components as html
 
 from .exceptions import ValidationError
 from .components import Col, Row, Header
-from .settings import (CONTENT_CONTAINER_ID, URL_BASE_PATHNAME,
-                       NAVBAR_CONTAINER_ID, NAV_ITEMS, NAVBAR)
+from .server import server
+
 
 """Contains layouts suitable for being the value of the 'layout' attribute of
-Dash app instances. """
+Dash app instances."""
 
 
 def main_layout_header():
@@ -17,13 +17,13 @@ def main_layout_header():
             id="header",
             children=[
                 Header(),
-                html.Div(id=NAVBAR_CONTAINER_ID),
+                html.Div(id=server.config['NAVBAR_CONTAINER_ID']),
             ]
         ),
         html.Div(
             className='container-fluid',
             children=Row(
-                Col(id=CONTENT_CONTAINER_ID)
+                Col(id=server.config['CONTENT_CONTAINER_ID'])
             )
         ),
         dcc.Location(id='url', refresh=False)
@@ -41,10 +41,10 @@ def main_layout_sidebar():
                     size=2,
                     children=[
                         Row(Col(Header())),
-                        Row(Col(id=NAVBAR_CONTAINER_ID))
+                        Row(Col(id=server.config['NAVBAR_CONTAINER_ID']))
                     ]),
                 Col(
-                    id=CONTENT_CONTAINER_ID,
+                    id=server.config['CONTENT_CONTAINER_ID'],
                     size=10,
                     className='offset-2'
                 ),
@@ -60,7 +60,7 @@ def main_layout_fullpage():
         html.Div(
             className='container-fluid',
             children=Row(
-                Col(id=CONTENT_CONTAINER_ID)
+                Col(id=server.config['CONTENT_CONTAINER_ID'])
             )
         ),
         dcc.Location(id='url', refresh=False),
