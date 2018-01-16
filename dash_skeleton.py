@@ -92,7 +92,6 @@ def callback(text, sort_type, normalize):
         },
     }
 
-import ipdb; ipdb.set_trace()
 
 if __name__ == '__main__':
     # To make this app publicly available, supply the parameter host='0.0.0.0'.
