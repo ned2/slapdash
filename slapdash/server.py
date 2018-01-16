@@ -19,7 +19,6 @@ server.config.from_envvar('SLAPDASH_SETTINGS', silent=True)
 
 
 app = CustomIndexDash(
-    __name__,
     server=server,
     url_base_pathname=server.config['URL_BASE_PATHNAME']
 )

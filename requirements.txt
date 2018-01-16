@@ -7,45 +7,48 @@
 certifi==2017.11.5        # via requests
 chardet==3.0.4            # via requests
 click==6.7                # via flask
-dash-core-components==0.15.2
+dash-core-components==0.17.0
 dash-html-components==0.8.0
-dash-renderer==0.11.1
-dash-table-experiments==0.5.0
+dash-renderer==0.11.2
+dash-table-experiments==0.5.3
 dash==0.19.0
-decorator==4.1.2          # via ipython, plotly, traitlets
-docopt==0.6.2             # via ptpython
+decorator==4.2.1          # via ipython, plotly, traitlets
+docopt==0.6.2             # via grip, ptpython
 flask-compress==1.4.0     # via dash
-flask==0.12.2             # via dash, flask-compress
+flask==0.12.2             # via dash, flask-compress, grip
 gevent==1.2.2
 greenlet==0.4.12          # via gevent
+grip==4.4.0
 gunicorn==19.7.1
 idna==2.6                 # via requests
 ipdb==0.10.3
 ipython-genutils==0.2.0   # via nbformat, traitlets
 ipython==6.2.1
 itsdangerous==0.24        # via flask
-jedi==0.11.0              # via ipython, ptpython
+jedi==0.11.1              # via ipython, ptpython
 jinja2==2.10              # via flask
 jsonschema==2.6.0         # via nbformat
 jupyter-core==4.4.0       # via nbformat
+markdown==2.6.11          # via grip
 markupsafe==1.0           # via jinja2
 nbformat==4.4.0           # via plotly
-numpy==1.13.3             # via pandas
-pandas==0.21.0
-parso==0.1.0              # via jedi
-pexpect==4.3.0            # via ipython
+numpy==1.14.0             # via pandas
+pandas==0.22.0
+parso==0.1.1              # via jedi
+path-and-address==2.0.1   # via grip
+pexpect==4.3.1            # via ipython
 pickleshare==0.7.4        # via ipython
 plotly==2.2.3
 prompt-toolkit==1.0.15    # via ipython, ptpython
 ptpython==0.41
 ptyprocess==0.5.2         # via pexpect
-pygments==2.2.0           # via ipython, ptpython
+pygments==2.2.0           # via grip, ipython, ptpython
 python-dateutil==2.6.1    # via pandas
 pytz==2017.3              # via pandas, plotly
-requests==2.18.4          # via plotly
+requests==2.18.4          # via grip, plotly
 simplegeneric==0.8.1      # via ipython
 six==1.11.0               # via plotly, prompt-toolkit, python-dateutil, traitlets
 traitlets==4.3.2          # via ipython, jupyter-core, nbformat
 urllib3==1.22             # via requests
 wcwidth==0.1.7            # via prompt-toolkit
-werkzeug==0.13            # via flask
+werkzeug==0.14.1          # via flask

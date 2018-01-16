@@ -8,6 +8,10 @@ from .utils import component, get_url
 @component
 def Row(*args, **kwargs):
     """A convenience component that makes a Bootstrap row"""
+    if len(args) > 0:
+        children=args[0]
+    else:
+        children = None
     return html.Div(children=args[0], className='row', **kwargs)
 
 
@@ -20,6 +24,7 @@ def Col(*args, bp=None, size=None, **kwargs):
         col_class = f'col-{size}'
     else:        
         col_class = f'col-{bp}-{size}'
+
     if len(args) > 0:
         children=args[0]
     else:
