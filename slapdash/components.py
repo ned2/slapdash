@@ -6,17 +6,13 @@ from .utils import component, get_url
 
 
 @component
-def Row(*args, **kwargs):
+def Row(children=None, **kwargs):
     """A convenience component that makes a Bootstrap row"""
-    if len(args) > 0:
-        children=args[0]
-    else:
-        children = None
-    return html.Div(children=args[0], className='row', **kwargs)
+    return html.Div(children=children, className='row', **kwargs)
 
 
 @component  
-def Col(*args, bp=None, size=None, **kwargs):
+def Col(children=None, bp=None, size=None, **kwargs):
     """A convenience component that makes a Bootstrap column"""
     if size is None and bp is None:
         col_class = 'col'
@@ -24,16 +20,25 @@ def Col(*args, bp=None, size=None, **kwargs):
         col_class = f'col-{size}'
     else:        
         col_class = f'col-{bp}-{size}'
-
-    if len(args) > 0:
-        children=args[0]
-    else:
-        children = None
-    return html.Div(*args, className=col_class, **kwargs)
+    return html.Div(children=children, className=col_class, **kwargs)
 
 
 @component
-def Header(**kwargs):
+def Link(children=None, href='', **kwargs):
+    # TODO: CSS pointer-events have been set to none for the nested anchor tag
+    # so that clicking the link doesn't cause a page redirect to the target
+    # link. This however means we lose some useful link hover behaviour.
+    # https://github.com/plotly/dash-core-components/issues/129
+    return dcc.Link(
+        href=href,
+        className='link',
+        children=html.A(children, href=href),
+        **kwargs
+    )
+
+
+@component
+def Header(children=None, **kwargs):
     return html.Header(html.H1(
         children=[
             Fa('bar-chart'), 
@@ -41,10 +46,17 @@ def Header(**kwargs):
         ],
         **kwargs
     ))
-    
+
 
 @component
-def Navbar(items, current_path=None, first_root_nav=True, **kwargs):
+def Navbar(
+        children=None,
+        items=None,
+        current_path=None,
+        first_root_nav=True,
+        **kwargs):
+
+    items = items or []
     nav_items = []
     
     for i, (path, text) in enumerate(items):
@@ -73,21 +85,6 @@ def Navbar(items, current_path=None, first_root_nav=True, **kwargs):
     )
 
 
-@component
-def Link(children=None, href='', **kwargs):
-    # TODO: CSS pointer-events have been set to none for the nested anchor tag
-    # so that clicking the link doesn't cause a page redirect to the target
-    # link. This however means we lose some useful link hover behaviour.
-    # https://github.com/plotly/dash-core-components/issues/129
-    return dcc.Link(
-        href=href,
-        className='link',
-        children=html.A(children, href=href),
-        **kwargs
-    )
-
-
-@component
-def Fa(name, **kwargs):
+def Fa(name):
     """A convenience component for adding Font Awesome icons"""
     return html.I(className=f"fa fa-{name}")

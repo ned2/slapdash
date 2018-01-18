@@ -10,17 +10,16 @@ def get_url(path):
 
 
 def component(func):
-    """Decorator to help use vanilla functions as pseudo Dash Components"""
+    """Decorator to help vanilla functions as pseudo Dash Components"""
     @wraps(func)
-    def function_wrapper(*args, **kwargs):
+    def function_wrapper(children=None, **kwargs):
         # remove className and style args from input kwargs so the component
         # function does not have to worry about clobbering them.
         className = kwargs.pop('className', None)
         style = kwargs.pop('className', None)
-        children = kwargs.pop('children', None)
         
         # call the component function and get the result
-        result = func(*args, **kwargs)
+        result = func(children=children, **kwargs)
 
         # now restore the initial classes and styles by adding them
         # to any values the component introduced
@@ -35,13 +34,7 @@ def component(func):
             if hasattr(result, 'style'):
                 result.style = style.update(result.style)
             else:
-                result.style = style
-
-        # pass through the children attribute, only if the new component did not
-        # set it.
-        if children is not None and hasattr(result, 'children'):
-            result.children = children
-                
+                result.style = style                
 
         return result
     return function_wrapper

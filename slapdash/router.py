@@ -37,4 +37,4 @@ if server.config['NAVBAR']:
         if pathname is None:
             # pathname is None on the first load of the app; ignore this
             raise HaltCallback("Ignoring first url.pathname callback")
-        return Navbar(server.config['NAV_ITEMS'], current_path=pathname)
+        return Navbar(items=server.config['NAV_ITEMS'], current_path=pathname)
