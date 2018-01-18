@@ -80,7 +80,6 @@ def callback(text, sort_type, normalize):
         x_data, y_data = zip(*sorted(
             counts.items(),
             key=sort_func))
-
     return {
         'data': [
             {'x': x_data, 'y':y_data, 'type': 'bar', 'name': 'trace1'},
@@ -92,8 +91,48 @@ def callback(text, sort_type, normalize):
         },
     }
 
+import os
+def show_callbacks(app):
+    
+    def format_regs(registrations, padding=10):
+        # TODO: -- switch to single line printing if > 79 chars
+        vals = sorted("{}.{}".format(i['id'], i['property'])
+                      for i in registrations)
+        return ", ".join(vals)
+
+    for callback_id, callback in app.callback_map.items():
+        wrapped_func = callback['callback'].__wrapped__
+        inputs = callback['inputs']
+        states = callback['state']
+        events = callback['events']
+        
+        str_values = {
+            'callback': wrapped_func.__name__, 
+            'output': callback_id,
+            'filename': os.path.split(wrapped_func.__code__.co_filename)[-1],
+            'lineno': wrapped_func.__code__.co_firstlineno,
+            'num_inputs': len(inputs),
+            'num_states': len(states),
+            'num_events': len(events),
+            'inputs': format_regs(inputs),
+            'states': format_regs(states),
+            'events': format_regs(events)
+        }
+        
+        output = """
+        callback      {callback} @ {filename}:{lineno}
+        Output        {output}
+        Inputs  {num_inputs:>4}  {inputs}
+        States  {num_states:>4}  {states}
+        Events  {num_events:>4}  {events}
+        """.format(**str_values)
+
+        print(output)
+
+    
+#show_callbacks(app)
 
 if __name__ == '__main__':
     # To make this app publicly available, supply the parameter host='0.0.0.0'.
     # You should also disable debug mode in production.
-    app.run_server(debug=True, port=8050)
+    app.run_server(debug=True, port=8051)
