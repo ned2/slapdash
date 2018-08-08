@@ -10,8 +10,15 @@ applications. Slapdash provides a template for quickly building out a multi-page
 Dash application. It includes pre-built layouts based on Bootstrap, which can be
 extended or swapped out for layouts constructed using your own CSS.
 
-Also included is `dash_skeleton.py`, a template for bootstrapping smaller
-single-file applications.
+Also included is `dash_skeleton.py`, a minimal template for bootstrapping
+smaller single-file applications.
+
+## Installation
+
+After cloning/downloading the repository, simply install Slapdash as a package like this into your target virtualenv:
+
+    cd <PATH_TO_SLAPDASH>
+    pip install -s .
 
 
 ## Usage
@@ -25,13 +32,13 @@ single-file applications.
 7. Modify any additional settings in settings.py as desired. (The only other one
    you will likely definitely need to change is TITLE).
 8. Run the app either with `python run_flask.py (--debug)` or by targeting a
-   WSGI server at `wsgi.py`.
+   WSGI server at `src/slapdash/wsgi.py` or `slapdash.wsgi`.
 
 
 Note that this project is intended for bootstrapping initial Dash applications,
-as opposed to being a library that you import. You probably shouldn't assume
-that its internal structure and interfaces will be stable, as they will likely
-change.
+as opposed to being a library that you depend upon by importing. You probably
+shouldn't assume that its internal structure and interfaces will be stable, as
+they will likely change.
 
 
 ## Boilerplate Overview

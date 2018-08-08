@@ -1,13 +1,7 @@
-dash
-dash-renderer
-dash-html-components
-dash-core-components
-dash-table-experiments
-plotly
 pandas
 gunicorn
 gevent
-ipdb
 ipython
+ipdb
 ptpython
-grip
+
