@@ -16,7 +16,7 @@ single-file applications.
 
 ## Usage
 
-1. In `slapdash.py`, select the main layout you want from `layouts.py`.
+1. In `app.py`, select the main layout you want from `layouts.py`.
 2. Create your callbacks in `callbacks.py`.
 3. Create  your pages in `pages.py`.
 4. Add your pages to the `urls` attribute in `router.py`.
@@ -36,7 +36,7 @@ change.
 
 ## Boilerplate Overview
 
-* `slapdash.py` Entry point into the app. Imports other modules in correct order. 
+* `app.py` Entry point into the app. Imports other modules in correct order. 
 * `server.py` Creates both the Flask server and Dash app instances used for the app.
 * `wsgi.py` Contains `application` attribute suitable for pointing WSGI servers at.
 * `settings.py` Configurable settings for the application. 
