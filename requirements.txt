@@ -7,14 +7,14 @@
 backcall==0.1.0           # via ipython
 decorator==4.3.0          # via ipython, traitlets
 docopt==0.6.2             # via ptpython
-gevent==1.3.5
+gevent==1.3.6
 greenlet==0.4.14          # via gevent
 gunicorn==19.9.0
 ipdb==0.11
 ipython-genutils==0.2.0   # via traitlets
 ipython==6.5.0
 jedi==0.12.1              # via ipython, ptpython
-numpy==1.15.0             # via pandas
+numpy==1.15.1             # via pandas
 pandas==0.23.4
 parso==0.3.1              # via jedi
 pexpect==4.6.0            # via ipython
