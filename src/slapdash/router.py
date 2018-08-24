@@ -1,10 +1,11 @@
 from dash.dependencies import Output, Input
+from dash.exceptions import PreventUpdate
 
 from .server import app, server
 from .pages import page_not_found, page1, page2, page3
 from .components import Navbar
 from .utils import get_url
-from .exceptions import HaltCallback
+
 
 
 # Ordered iterable of routes: tuples of (route, layout), where 'route' is a
@@ -36,5 +37,5 @@ if server.config['NAVBAR']:
         """Create the navbar with the current page set to active"""
         if pathname is None:
             # pathname is None on the first load of the app; ignore this
-            raise HaltCallback("Ignoring first url.pathname callback")
+            raise PreventUpdate("Ignoring first url.pathname callback")
         return Navbar(items=server.config['NAV_ITEMS'], current_path=pathname)

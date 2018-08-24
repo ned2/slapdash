@@ -43,10 +43,3 @@ def favicon():
         'favicon.ico',
         mimetype='image/x-icon'
     )
-
-
-@server.errorhandler(HaltCallback)
-def handle_error(error):
-    """Handle a halted callback and return an empty 204 response"""
-    print(error, file=sys.stderr)
-    return ('', 204)
