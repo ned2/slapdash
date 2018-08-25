@@ -33,8 +33,5 @@ app.config.supress_callback_exceptions = True
 @server.route('/favicon.ico')
 def favicon():
     """Serve the favicon"""
-    return send_from_directory(
-        os.path.join(server.root_path, server.config['STATIC_FOLDER']),
-        'favicon.ico',
-        mimetype='image/x-icon'
-    )
+    return send_from_directory(app._assets_folder, 'favicon.ico',
+                               mimetype='image/x-icon')
