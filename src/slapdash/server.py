@@ -19,14 +19,9 @@ server.config.from_object(f'{__package__}.settings')
 server.config.from_envvar('SLAPDASH_SETTINGS', silent=True)
 
 
-# need to work around a bug in Dash: https://github.com/plotly/dash/issues/345
-# can remove this param from the Dash constructor once fixed
-assets_folder = os.path.join(get_root_path(server.name), 'assets')
-
-
 app = Dash(
+    __package__, # work around Dash bug: https://github.com/plotly/dash/issues/345
     server=server,
-    assets_folder=assets_folder,
     url_base_pathname=server.config['URL_BASE_PATHNAME']
 )
 
