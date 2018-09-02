@@ -5,8 +5,6 @@ from dash import Dash
 from flask import Flask, send_from_directory
 from flask.helpers import get_root_path
 
-from .exceptions import HaltCallback
-
 server = Flask(__package__)
 
 
@@ -20,9 +18,8 @@ server.config.from_envvar('SLAPDASH_SETTINGS', silent=True)
 
 
 app = Dash(
-    __package__, # work around Dash bug: https://github.com/plotly/dash/issues/345
     server=server,
-    url_base_pathname=server.config['URL_BASE_PATHNAME']
+    url_base_pathname=server.config['URL_BASE_PATHNAME'],
 )
 
 # We need to suppress validations as we will be initialising callbacks

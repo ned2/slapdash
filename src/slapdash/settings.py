@@ -9,22 +9,13 @@
 # Your App's title
 TITLE = 'Slapdash'
 
-# URL PREFIX the the app will be mounted at. Must start with '/'
+# URL PREFIX the the app will be mounted at. Must start and end with '/'
 URL_BASE_PATHNAME = '/'
 
 # The ID of the element used to inject each page of the multi-page app into
 CONTENT_CONTAINER_ID = 'dash-container'
 
 NAVBAR_CONTAINER_ID = 'navbar'
-
-# The style sheets you want to include in every page of the app. These are
-# relative to the STATIC_URL_PATH
-STYLESHEETS = [
-    'slapdash.css',
-    'bootstrap.min.css',
-    'font-awesome/css/font-awesome.css',
-    'custom.css'
-]
 
 # Boolean that indicates whether to insert a navigation bar into the
 # header/sidebar.
@@ -40,16 +31,3 @@ NAV_ITEMS = (
     ('page3', 'Page 3'),
 )
 
-# Add you own parameters here
-
-
-#
-# Flask internal parameters
-# For list of available params, see: http://flask.pocoo.org/docs/config 
-#
-
-# where your static files live relative to the top level of the package
-STATIC_FOLDER = 'static'
-
-# The URL your static files will be mounted at 
-STATIC_URL_PATH = '/static'
