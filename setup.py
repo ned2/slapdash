@@ -6,9 +6,7 @@ setup(
     version='0.1',
     py_modules=['slapdash'],
     install_requires=[
-        # TODO: add minimum version requirements
-        'dash',
-        'dash-renderer',
+        'dash>0.26.1',
         'dash-html-components',
         'dash-core-components',
     ],

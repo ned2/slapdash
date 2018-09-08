@@ -7,7 +7,6 @@ from flask.helpers import get_root_path
 
 server = Flask(__package__)
 
-
 # load default settings
 server.config.from_object(f'{__package__}.settings')
 
@@ -17,10 +16,7 @@ server.config.from_object(f'{__package__}.settings')
 server.config.from_envvar('SLAPDASH_SETTINGS', silent=True)
 
 
-app = Dash(
-    server=server,
-    url_base_pathname=server.config['URL_BASE_PATHNAME'],
-)
+app = Dash(server=server)
 
 # We need to suppress validations as we will be initialising callbacks
 # that target element IDs that won't yet occur in the layout. 

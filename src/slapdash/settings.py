@@ -9,9 +9,6 @@
 # Your App's title
 TITLE = 'Slapdash'
 
-# URL PREFIX the the app will be mounted at. Must start and end with '/'
-URL_BASE_PATHNAME = '/'
-
 # The ID of the element used to inject each page of the multi-page app into
 CONTENT_CONTAINER_ID = 'dash-container'
 
