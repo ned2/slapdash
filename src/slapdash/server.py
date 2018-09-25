@@ -5,7 +5,7 @@ from dash import Dash
 from flask import Flask, send_from_directory
 
 server = Flask(__package__)
-print(__package__)
+
 # load default settings
 server.config.from_object(f'{__package__}.settings')
 
