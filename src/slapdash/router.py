@@ -9,8 +9,8 @@ from .utils import get_url
 
 
 # Ordered iterable of routes: tuples of (route, layout), where 'route' is a
-# string corresponding to path of the route (will be prefixed with
-# URL_BASE_PATHNAME) and 'layout' is a Dash Component.
+# string corresponding to path of the route (will be prefixed with Dash's
+# 'routes_pathname_prefix' and 'layout' is a Dash Component.
 urls = (
     ('', page1),
     ('page1', page1),

@@ -1,12 +1,11 @@
 from functools import wraps
 
-from .server import server
+from .server import server, app
 
 
 def get_url(path):
-    """Expands the an internal URL to include prefix the app is mounted at"""
-    base_path = server.config['URL_BASE_PATHNAME'] 
-    return f"{base_path}{path}"
+    """Expands an internal URL to include prefix the app is mounted at"""
+    return f"{app.config.routes_pathname_prefix}{path}"
 
 
 def component(func):

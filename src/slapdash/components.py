@@ -1,7 +1,7 @@
 import dash_core_components as dcc
 import dash_html_components as html
 
-from .server import server
+from .server import server, app
 from .utils import component, get_url
 
 
@@ -24,28 +24,22 @@ def Col(children=None, bp=None, size=None, **kwargs):
 
 
 @component
-def Link(children=None, href='', **kwargs):
-    # TODO: CSS pointer-events have been set to none for the nested anchor tag
-    # so that clicking the link doesn't cause a page redirect to the target
-    # link. This however means we lose some useful link hover behaviour.
-    # https://github.com/plotly/dash-core-components/issues/129
-    return dcc.Link(
-        href=href,
-        className='link',
-        children=html.A(children, href=href),
-        **kwargs
-    )
-
-
-@component
 def Header(children=None, **kwargs):
     return html.Header(html.H1(
         children=[
             Fa('bar-chart'), 
-            Link(server.config['TITLE'], href=server.config['URL_BASE_PATHNAME'])
+            dcc.Link(
+                server.config['TITLE'],
+                href=app.config.routes_pathname_prefix
+            )
         ],
         **kwargs
     ))
+
+
+def Fa(name):
+    """A convenience component for adding Font Awesome icons"""
+    return html.I(className=f"fa fa-{name}")
 
 
 @component
@@ -56,21 +50,21 @@ def Navbar(
         first_root_nav=True,
         **kwargs):
 
-    items = items or []
+    items = items if items is not None else []
     nav_items = []
+    route_prefix = app.config.routes_pathname_prefix
     
     for i, (path, text) in enumerate(items):
         href = get_url(path)
-        url_base_pathname = server.config['URL_BASE_PATHNAME']
         # bool indicating if: on the root url and this is the first nav item       
-        is_first_root_nav = (current_path == url_base_pathname) and (i == 0)
+        is_first_root_nav = (current_path == route_prefix) and (i == 0)
         # active if we are on the path of this nav item, or if first_root_nav is
         # enabled and applies for this path
         is_active = (current_path == href) or (first_root_nav and is_first_root_nav) 
         className = 'nav-item active' if is_active else 'nav-item'
         nav_items.append(html.Li(
             className=className,
-            children=Link(text, href=href, className='nav-link')
+            children=dcc.Link(text, href=href, className='nav-link')
         ))
 
     return html.Nav(
@@ -83,8 +77,3 @@ def Navbar(
         ],
         **kwargs,
     )
-
-
-def Fa(name):
-    """A convenience component for adding Font Awesome icons"""
-    return html.I(className=f"fa fa-{name}")
