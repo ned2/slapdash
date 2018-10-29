@@ -18,7 +18,7 @@ smaller single-file applications.
 After cloning/downloading the repository, simply install Slapdash as a package like this into your target virtualenv:
 
     cd <PATH_TO_SLAPDASH>
-    pip install -s .
+    pip install -e .
 
 
 ## Usage
