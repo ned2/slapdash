@@ -9,7 +9,7 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objs as go
-from dash.dependencies import Input, State, Output, Event
+from dash.dependencies import Input, State, Output
 
 
 app = dash.Dash(__name__)
@@ -59,7 +59,6 @@ chart with their frequency as you type."""),
      Input('sort-type', 'value'),
      Input('normalize', 'value')],  
     [],                             # States
-    []                              # Events
 )
 def callback(text, sort_type, normalize):
     if normalize == 'yes':
