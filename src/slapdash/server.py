@@ -2,7 +2,7 @@ import os
 import sys
 
 from dash import Dash
-from flask import Flask, send_from_directory
+from flask import Flask
 
 server = Flask(__package__)
 
@@ -20,10 +20,3 @@ app = Dash(server=server)
 # We need to suppress validations as we will be initialising callbacks
 # that target element IDs that won't yet occur in the layout. 
 app.config.supress_callback_exceptions = True
-
-
-@server.route('/favicon.ico')
-def favicon():
-    """Serve the favicon"""
-    return send_from_directory(app._assets_folder, 'favicon.ico',
-                               mimetype='image/x-icon')
