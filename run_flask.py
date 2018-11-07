@@ -2,7 +2,7 @@
 
 import argparse
 
-from slapdash.app import app
+from slapdash.index import app
 
 
 def argparser():

@@ -21,30 +21,34 @@ smaller single-file applications.
 
 ## Installation
 
-After cloning/downloading the repository, simply install Slapdash as a package like this into your target virtualenv:
+After cloning/downloading the repository, simply install Slapdash as a package
+into your target virtualenv:
 
     cd <PATH_TO_SLAPDASH>
     pip install -e .
 
 ## Usage
 
-1. In `app.py`, select the main layout you want from `layouts.py`.
+1. In `index.py`, select the main layout you want from `layouts.py`.
 2. Create your callbacks in `callbacks.py`.
-3. Create  your pages in `pages.py`.
+3. Create your pages in `pages.py`.
 4. Add your pages to the `urls` attribute in `router.py`.
 5. Add desired pages to `NAV_ITEMS` (if using a navbar) in `settings.py`.
-6. Add additional CSS to `assets/custom.css`. 
-7. Modify any additional settings in settings.py as desired. (The only other one
-   you will likely definitely need to change is TITLE).
+6. Add additional CSS to `assets/custom.css` (for example). 
+7. Modify any additional settings in `settings.py` as desired.
 
 
 ## Running Your App
 
-You can launch the app using the `run_flask.py` script, which uses Flask's development server (and which shouldn't be used in production). The script takes a couple of arguments optional parameters, which you can discover with `--help` flag.
+You can launch the app using the `run_flask.py` script, which uses Flask's
+development server (and which shouldn't be used in production). The script takes
+a couple of arguments optional parameters, which you can discover with the
+`--help` flag.
 
     $ python run_flask.py --debug
 
-You can run your app using a WSGI server (such as Gunicorn) with the `wsgi.py` entry point like so:
+You can run your app using a WSGI server (such as Gunicorn) with the `wsgi.py`
+entry point like so:
 
     $ gunicorn slapdash.wsgi
 
@@ -55,15 +59,15 @@ Or if you'd rather not install the Slapdash package, relative to the root direct
     
 ## Boilerplate Overview
 
-* `app.py` Entry point into the app. Imports other modules in correct order. 
-* `server.py` Creates both the Flask server and Dash app instances used for the app.
-* `callbacks.py` Custom callbacks go here.
+* `index.py` Entry point into the app. Imports other modules in the correct order
+  and initialise the router with URL routes.
+* `app.py` Creates both the Flask and Dash instances used for the app.
+* `callbacks.py` callbacks go here.
 * `layouts.py` Possible values for the `layout` attribute of the Dash instance
   are defined here.
-* `pages.py` Custom pages go here.
+* `pages.py` Custom pages to link to routes go here.
 * `wsgi.py` Contains `application` attribute suitable for pointing WSGI servers at.
 * `settings.py` Configurable settings for the application. 
-* `router.py` Contains the application routes in url and initialises the router callback.
 * `exceptions.py` Exceptions used by the app are defined here.
 * `components.py` Convenient Python pseudo-components defined here, such as `Row` and
   `Col` for an easy experience creating Bootstrap rows and columns.
@@ -73,8 +77,8 @@ Or if you'd rather not install the Slapdash package, relative to the root direct
 
 ## Included Libraries
 
-Slapdash includes a few plugins for getting fully functional applications off
-the ground faster. These currently include:
+Slapdash includes a few libraries for getting fully functional applications off
+the ground faster. These include:
 
 * [Bootstrap v4](https://getbootstrap.com) Just the CSS, primarily for its grid layout.
 * [Font Awesome](http://fontawesome.io) Because everyone wants pretty icons.

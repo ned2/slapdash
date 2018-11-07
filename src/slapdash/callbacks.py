@@ -1,6 +1,6 @@
 from dash.dependencies import Output, Input, State
 
-from .server import app
+from .app import app
 
 
 # Put your callbacks here

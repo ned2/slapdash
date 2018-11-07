@@ -3,7 +3,7 @@ import dash_html_components as html
 
 from .exceptions import ValidationError
 from .components import Col, Row, Header
-from .server import server
+from .app import server
 
 
 """Contains layouts suitable for being the value of the 'layout' attribute of

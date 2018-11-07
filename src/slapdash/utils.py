@@ -1,6 +1,6 @@
 from functools import wraps
 
-from .server import server, app
+from .app import server, app
 
 
 def get_url(path):

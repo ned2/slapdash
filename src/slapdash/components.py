@@ -1,7 +1,7 @@
 import dash_core_components as dcc
 import dash_html_components as html
 
-from .server import server, app
+from .app import server, app
 from .utils import component, get_url
 
 
