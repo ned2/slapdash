@@ -9,6 +9,8 @@
 # Your App's title
 TITLE = 'Slapdash'
 
+ROUTES_PATHNAME_PREFIX = '/'
+
 # The ID of the element used to inject each page of the multi-page app into
 CONTENT_CONTAINER_ID = 'dash-container'
 

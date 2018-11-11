@@ -1,9 +1,9 @@
+from flask import current_app as server
 import dash_core_components as dcc
 import dash_html_components as html
 
 from .exceptions import ValidationError
 from .components import Col, Row, Header
-from .app import server
 
 
 """Contains layouts suitable for being the value of the 'layout' attribute of

@@ -1,11 +1,10 @@
+from flask import current_app as server
 from functools import wraps
-
-from .app import server, app
 
 
 def get_url(path):
     """Expands an internal URL to include prefix the app is mounted at"""
-    return f"{app.config.routes_pathname_prefix}{path}"
+    return f"{server.config['ROUTES_PATHNAME_PREFIX']}{path}"
 
 
 def component(func):
