@@ -6,7 +6,6 @@ from .app import app
 from .pages import page_not_found, page1, page2, page3
 from .components import Navbar
 from .utils import get_url
-from . import callbacks
 
 
 #
@@ -17,7 +16,7 @@ from . import callbacks
 # string corresponding to path of the route (will be prefixed with Dash's
 # 'routes_pathname_prefix' and 'layout' is a Dash Component.
 urls = (
-    ('', page1),
+    ('',      page1.layout),
     ('page1', page1.layout),
     ('page2', page2.layout),
     ('page3', page3.layout),
