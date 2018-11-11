@@ -2,8 +2,7 @@
 
 **Boilerplate for bootstrapping multi-page Dash applications**
 
-_Note: This is a work in progress, but it's probably at a point where it's
-more useful than not._
+_Note: This is a work in progress, but it's probably at a point where it's useful._
 
 [Dash](https://plot.ly/dash) is a Python framework for building analytical web
 applications. Slapdash provides a template for quickly building out a multi-page
@@ -30,12 +29,12 @@ into your target virtualenv:
 ## Usage
 
 1. In `index.py`, select the main layout you want from `layouts.py`.
-2. Create your callbacks in `callbacks.py`.
-3. Create your pages in `pages.py`.
-4. Add your pages to the `urls` attribute in `router.py`.
-5. Add desired pages to `NAV_ITEMS` (if using a navbar) in `settings.py`.
-6. Add additional CSS to `assets/custom.css` (for example). 
-7. Modify any additional settings in `settings.py` as desired.
+1. Create your pages in different files in `pages`, by defining a `layout` and
+   callbacks each page needs .
+1. Add your pages to the `urls` attribute in `router.py`.
+1. Add desired pages to `NAV_ITEMS` (if using a navbar) in `settings.py`.
+1. Add additional CSS to `assets/custom.css` (for example). 
+1. Modify any additional settings in `settings.py` as desired.
 
 
 ## Running Your App
