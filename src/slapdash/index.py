@@ -38,7 +38,6 @@ def router(pathname):
 # The Navbar
 #
 
-
 if server.config['NAVBAR']:
     @app.callback(Output(server.config['NAVBAR_CONTAINER_ID'], 'children'),
                   [Input('url', 'pathname')])
