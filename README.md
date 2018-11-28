@@ -80,13 +80,6 @@ the ground faster. These include:
 * [Font Awesome](http://fontawesome.io) Because everyone wants pretty icons.
 
 
-## dash_skeleton.py
-
-For simple applications that with a single view, the full Slapdash codebase is
-probably overkill. `dash_skeleton.py` is a Dash single-file Dash template that
-you can pull down and start hacking on with minimal overhead.
-
-
 ## Useful References
 
 1. [The Dash User Guide](https://plot.ly/dash)
