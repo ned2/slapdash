@@ -9,13 +9,10 @@ applications. Slapdash provides a template for quickly building out a multi-page
 Dash application. It includes pre-built layouts based on Bootstrap, which can be
 extended or swapped out for layouts constructed using your own CSS.
 
-Note that this project is intended for bootstrapping initial Dash applications,
-as opposed to being a library that you depend upon by importing. You probably
-shouldn't assume that its internal structure and interfaces will be stable, as
-they will likely change.
-
-Also included is `dash_skeleton.py`, a minimal template for bootstrapping
-smaller single-file applications.
+This project is intended for bootstrapping initial Dash applications using at least 
+reasonable (if not best) practice. It should not be thought of as a library that can
+be added as a dependency. You shouldn't assume that its internal structure 
+and interfaces will be stable, as they will likely change.
 
 
 ## Installation
