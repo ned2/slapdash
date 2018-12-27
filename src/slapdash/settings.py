@@ -3,22 +3,35 @@
 # effect. For more information see http://flask.pocoo.org/docs/config.
 
 # 
-# Config For your app 
+# Config for the Dash instance 
 #
 
 # Your App's title
 TITLE = 'Slapdash'
 
+# Prefix 
 ROUTES_PATHNAME_PREFIX = '/'
+
+# If you want to use Bootstrap from a CDN, Dash Bootstrap Components contains
+# links to bootstrapcdn:
+#
+# import dash_bootstrap_components as dbc
+# EXTERNAL_STYLESHEETS = [dbc.themes.BOOTSTRAP]
+# 
+# or if you want to use a Bootswatch theme: 
+# import dash_bootstrap_components as dbc
+# EXTERNAL_STYLESHEETS = [dbc.themes.CERULEAN]
+EXTERNAL_STYLESHEETS = []
+
+
+#
+# Other Slapdash config
+#
 
 # The ID of the element used to inject each page of the multi-page app into
 CONTENT_CONTAINER_ID = 'dash-container'
 
 NAVBAR_CONTAINER_ID = 'navbar'
-
-# Boolean that indicates whether to insert a navigation bar into the
-# header/sidebar.
-NAVBAR = True
 
 # Ordered iterable of navbar items: tuples of (route, name), where 'route' is a
 # string corresponding to path of the route (will be prefixed with

@@ -9,6 +9,7 @@ setup(
         'dash>0.26.1',
         'dash-html-components',
         'dash-core-components',
+        'dash-bootstrap-components',
     ],
     packages=find_packages('src'),
     package_dir={'': 'src'},

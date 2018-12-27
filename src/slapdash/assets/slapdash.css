@@ -40,22 +40,11 @@ header {margin-left: 0.5em;}
     color: white;
 }
 
-#header .nav-item {font-size: 1.1em;}
-#header .navbar a:hover, .navbar a:focus {text-decoration: underline}
-#header .nav-item.active {text-decoration: underline}
-
+.nav-item {font-size: 1.1em;}
+.nav-link.active, .nav-link:hover {text-decoration: underline}
 
 /* Sidebar */
 #sidebar {
     background-color: black;
     color: white;
 }
-
-#sidebar .navbar a:hover, .navbar a:focus {text-decoration: underline}
-#sidebar .nav-item.active {text-decoration: underline}
-
-
-
-
-
-

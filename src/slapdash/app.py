@@ -1,9 +1,9 @@
-from . import create_app, create_dash
+from . import create_flask, create_dash
 from .layouts import main_layout_header
 
 
 # The Flask instance
-server = create_app()
+server = create_flask()
 
 # The Dash instance
 app = create_dash(server)

@@ -4,7 +4,7 @@ from dash.exceptions import PreventUpdate
 
 from .app import app
 from .pages import page_not_found, page1, page2, page3
-from .components import Navbar
+from .components import make_navbar
 from .utils import get_url
 
 
@@ -34,16 +34,12 @@ def router(pathname):
     return routes.get(pathname, default_layout)
 
 
-#
-# The Navbar
-#
+@app.callback(Output(server.config['NAVBAR_CONTAINER_ID'], 'children'),
+              [Input('url', 'pathname')])
+def update_nav(pathname):
+    """Create the navbar with the current page set to active"""
+    if pathname is None:
+        # pathname is None on the first load of the app; ignore this
+        raise PreventUpdate("Ignoring first url.pathname callback")
+    return make_navbar(server.config['NAV_ITEMS'], pathname)
 
-if server.config['NAVBAR']:
-    @app.callback(Output(server.config['NAVBAR_CONTAINER_ID'], 'children'),
-                  [Input('url', 'pathname')])
-    def update_nav(pathname):
-        """Create the navbar with the current page set to active"""
-        if pathname is None:
-            # pathname is None on the first load of the app; ignore this
-            raise PreventUpdate("Ignoring first url.pathname callback")
-        return Navbar(items=server.config['NAV_ITEMS'], current_path=pathname)
