@@ -4,7 +4,7 @@ from dash.exceptions import PreventUpdate
 
 from .app import app
 from .pages import page_not_found, page1, page2, page3
-from .components import make_nav_items
+from .components import make_nav
 from .utils import get_url
 
 
@@ -46,4 +46,4 @@ def update_nav(pathname):
     if pathname is None:
         # pathname is None on the first load of the app; ignore this
         raise PreventUpdate("Ignoring first url.pathname callback")
-    return make_nav_items(server.config['NAV_ITEMS'], pathname)
+    return make_nav(server.config['NAV_ITEMS'], pathname)

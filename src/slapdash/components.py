@@ -1,7 +1,7 @@
-from flask import current_app as server
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
+from flask import current_app as server
 
 from .utils import get_url, component
 
@@ -41,6 +41,7 @@ def make_header(**kwargs):
         **kwargs
     )
 
+
 @component
 def make_sidebar(**kwargs):
     return html.Nav(
@@ -48,16 +49,14 @@ def make_sidebar(**kwargs):
         className="nav navbar-dark bg-dark flex-column align-items-start",
         children=[
             make_brand(),
-            html.Ul(
-                id=server.config['NAVBAR_CONTAINER_ID'],
-                className="navbar-nav"
-            )
+            html.Div(id=server.config['NAVBAR_CONTAINER_ID']),
         ],
         **kwargs
     )
-    
 
-def make_nav_items(items, current_path):
+
+@component
+def make_nav(items, current_path, **kwargs):
     nav_items = []
     route_prefix = server.config['ROUTES_PATHNAME_PREFIX']
     for i, (path, text) in enumerate(items):
@@ -66,4 +65,9 @@ def make_nav_items(items, current_path):
                                             route_prefix) 
         nav_item = dbc.NavItem(dbc.NavLink(text, href=href, active=active))
         nav_items.append(nav_item)
-    return nav_items
+    return html.Ul(
+        nav_items,
+        className="navbar-nav",
+        **kwargs
+    )
+
