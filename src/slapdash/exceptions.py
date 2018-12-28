@@ -2,5 +2,5 @@ class SlapdashBaseException(Exception):
     pass
 
 
-class ValidationError(SlapdashBaseException):
+class CustomError(SlapdashBaseException):
     pass
