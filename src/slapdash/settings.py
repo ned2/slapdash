@@ -40,9 +40,9 @@ EXTERNAL_SCRIPTS = []
 #
 
 # The ID of the element used to inject each page of the multi-page app into
-CONTENT_CONTAINER_ID = 'dash-container'
+CONTENT_CONTAINER_ID = 'page-content'
 
-NAVBAR_CONTAINER_ID = 'header'
+NAVBAR_CONTAINER_ID = 'navbar-items'
 
 # Ordered iterable of navbar items: tuples of (route, name), where 'route' is a
 # string corresponding to path of the route (will be prefixed with

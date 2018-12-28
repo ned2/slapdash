@@ -34,7 +34,7 @@ def make_header(**kwargs):
         children=[
             make_brand(),
             html.Ul(
-                id="header-navbar",
+                id=server.config['NAVBAR_CONTAINER_ID'],
                 className="navbar-nav ml-auto"
             )
         ],
@@ -42,14 +42,14 @@ def make_header(**kwargs):
     )
 
 @component
-def make_sidebar(id_prefix="", **kwargs):
+def make_sidebar(**kwargs):
     return html.Nav(
-        id=f"{id_prefix}sidebar",
+        id=f"sidebar",
         className="nav navbar-dark bg-dark flex-column align-items-start",
         children=[
             make_brand(),
             html.Ul(
-                id=f"{id_prefix}sidebar-navbar",
+                id=server.config['NAVBAR_CONTAINER_ID'],
                 className="navbar-nav"
             )
         ],
