@@ -21,9 +21,12 @@ def create_dash(server):
     app = Dash(
         server=server,
         external_stylesheets=server.config['EXTERNAL_STYLESHEETS'],
+        external_scripts=server.config['EXTERNAL_SCRIPTS'],
         routes_pathname_prefix=server.config['ROUTES_PATHNAME_PREFIX'],
         suppress_callback_exceptions=True,
     )
 
     app.title = server.config['TITLE']
+    app.scripts.config.serve_locally = server.config['SERVE_LOCALLY']
+    app.css.config.serve_locally = server.config['SERVE_LOCALLY']
     return app
