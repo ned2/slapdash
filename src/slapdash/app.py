@@ -1,5 +1,5 @@
 from . import create_flask, create_dash
-from .layouts import main_layout_header
+from .layouts import main_layout_header, main_layout_sidebar
 
 
 # The Flask instance
@@ -15,6 +15,6 @@ with server.app_context():
     from . import index
 
     # configure the Dash instance's layout
-    app.layout = main_layout_header()
+    app.layout = main_layout_sidebar()
 
 
