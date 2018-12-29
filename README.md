@@ -6,7 +6,7 @@
 applications. Slapdash provides a sensible project layout for quickly building
 out a multi-page Dash application with room for growth. It includes pre-built
 layouts based on Bootstrap (with the help of [Dash Bootstrap
-Components](https://dash-bootstrap-components.opensource.asidatascience.com/)),
+Components](https://dash-bootstrap-components.opensource.asidatascience.com)),
 which can be extended or swapped out for layouts constructed using your own
 Dash/CSS components.
 
