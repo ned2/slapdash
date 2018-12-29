@@ -43,26 +43,3 @@ EXTERNAL_SCRIPTS = []
 CONTENT_CONTAINER_ID = 'page-content'
 
 NAVBAR_CONTAINER_ID = 'navbar-items'
-
-# Ordered iterable of navbar items: tuples of `(route, display)`, where `route`
-# is a string corresponding to path of the route (will be prefixed with
-# URL_BASE_PATHNAME) and 'display' is a valid value for the `children` keyword
-# argument for a Dash component (ie a Dash Component or a string).
-
-from .components import fa
-import dash_html_components as html
-NAV_ITEMS = (
-    (
-        "character-counter",
-        html.Div([fa("fas fa-keyboard"), "Character Counter"])
-    ),
-    (
-        "page2",
-        html.Div([fa("fas fa-chart-area"), "Page 2"])
-    ),
-    (
-        "page3",
-        html.Div([fa("fas fa-chart-line"), "Page 3"])
-    ),
-)
-
