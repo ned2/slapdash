@@ -5,7 +5,7 @@ from flask import current_app as server
 
 def get_url(path):
     """Expands an internal URL to include prefix the app is mounted at"""
-    return f"{server.config['ROUTES_PATHNAME_PREFIX']}{path}"
+    return f"{server.config['URL_BASE_PATHNAME']}{path}"
 
 
 def component(func):

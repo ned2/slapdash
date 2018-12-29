@@ -60,7 +60,7 @@ def make_sidebar(**kwargs):
 @component
 def make_nav(items, current_path, **kwargs):
     nav_items = []
-    route_prefix = server.config['ROUTES_PATHNAME_PREFIX']
+    route_prefix = server.config['URL_BASE_PATHNAME']
     for i, (path, text) in enumerate(items):
         href = get_url(path)
         active = (current_path == href) or (i == 0 and current_path ==

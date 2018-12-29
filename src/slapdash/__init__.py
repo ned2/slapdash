@@ -22,7 +22,7 @@ def create_dash(server):
         server=server,
         external_stylesheets=server.config['EXTERNAL_STYLESHEETS'],
         external_scripts=server.config['EXTERNAL_SCRIPTS'],
-        routes_pathname_prefix=server.config['ROUTES_PATHNAME_PREFIX'],
+        routes_pathname_prefix=server.config['URL_BASE_PATHNAME'],
         suppress_callback_exceptions=True,
     )
 
