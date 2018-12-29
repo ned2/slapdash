@@ -54,7 +54,10 @@ entry point like so:
 Or if you'd rather not install the Slapdash package, relative to the root directory: 
 
     $ gunicorn src.slapdash.wsgi
-    
+
+Note: if you want to enable Dash's debug mode while running with a WSGI server,
+you'll need to set the `DASH_DEBUG` environment variable to `true`. See the [Dev
+Tools](https://dash.plot.ly/devtools) section of the Dash Docs for more details.
 
 
 ## Boilerplate Overview
