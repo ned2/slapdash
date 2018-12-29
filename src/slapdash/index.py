@@ -17,7 +17,7 @@ from .utils import get_url
 # 'routes_pathname_prefix' and 'layout' is a Dash Component.
 urls = (
     ('',      page1.layout),
-    ('page1', page1.layout),
+    ('character-counter', page1.layout),
     ('page2', page2.layout),
     ('page3', page3.layout),
 )

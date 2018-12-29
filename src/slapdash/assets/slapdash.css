@@ -16,5 +16,6 @@ a:hover {color: #014c8c !important}
     height: 100vh;
 }
 
-.nav-item {font-size: 1.1em;}
+.nav-item {font-size: 1.1em}
 .nav-link.active, .nav-link:hover {text-decoration: underline}
+header i, .nav-link i {padding: 0 0.5rem}

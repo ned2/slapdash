@@ -5,12 +5,18 @@ from flask import current_app as server
 
 from .utils import get_url, component
 
+
+def fa(className):
+    """A convenience component for adding Font Awesome icons"""
+    return html.I(className=className)
+
+
 @component
 def make_brand(**kwargs):
     return html.Header(
         html.H1(
             [
-                fa('bar-chart'),
+                fa('far fa-chart-bar'),
                 dcc.Link(
                     server.config['TITLE'],
                     href=get_url('')
@@ -19,11 +25,6 @@ def make_brand(**kwargs):
         ),
         **kwargs
     )
-
-
-def fa(name):
-    """A convenience component for adding Font Awesome icons"""
-    return html.I(className=f"fa fa-{name}")
 
 
 @component
