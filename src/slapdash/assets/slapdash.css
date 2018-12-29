@@ -1,61 +1,23 @@
-body {
-    /* Problem is that this needs to only apply for top navbar*/
-    padding-top: 4.5rem;
-}
-
-
 /* Default link colours */
 a {color: #0275d8 !important}
+
 a:hover {color: #014c8c !important}
 
-/* All links generated through Dash should have pointer for hover */
-a.link:hover {cursor: pointer}
+#header a, #sidebar a {color: white !important;}
 
-/* We embed a regular anchor tag inside Dash links so it has an href which
-Bootstrap link-like anchor styles depend and so that the target url can be
-copied. This means we need to disable events on the inner anchor so as to not
-trigger a page-load when clicked. */
-a.link a {pointer-events: none}
-
-header {margin-left: 0.5em;}
-
-/* Header*/
-
-#header {
-    background-color: black;
-    color: white;
-    display: flex;
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 1010;
-}
-
-#header a {color: white !important;}
+#header, #sidebar {color: white}
 
 #header h1 {
     margin-bottom: 0;
     line-height: inherit;
-    color: white;
 }
 
-#header .nav-item {font-size: 1.1em;}
-#header .navbar a:hover, .navbar a:focus {text-decoration: underline}
-#header .nav-item.active {text-decoration: underline}
+#sidebar {height: 100vh}
 
+.nav-item {font-size: 1.1em}
 
-/* Sidebar */
-#sidebar {
-    background-color: black;
-    color: white;
-}
+.nav-link.active, .nav-link:hover {text-decoration: underline}
 
-#sidebar .navbar a:hover, .navbar a:focus {text-decoration: underline}
-#sidebar .nav-item.active {text-decoration: underline}
+.brand i, .nav-link i {padding: 0 0.5rem}
 
-
-
-
-
-
+.brand a:hover{text-decoration: none}

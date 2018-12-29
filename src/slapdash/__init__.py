@@ -2,7 +2,8 @@ from flask import Flask
 from dash import Dash
 
 
-def create_app(config_object=f'{__package__}.settings'):
+def create_flask(config_object=f'{__package__}.settings'):
+    """Create the Flask instance for this application"""
     server = Flask(__package__)
     
     # load default settings
@@ -16,13 +17,16 @@ def create_app(config_object=f'{__package__}.settings'):
 
 
 def create_dash(server):
-    app = Dash(server=server)
+    """Create the Dash instance for this application"""
+    app = Dash(
+        server=server,
+        external_stylesheets=server.config['EXTERNAL_STYLESHEETS'],
+        external_scripts=server.config['EXTERNAL_SCRIPTS'],
+        routes_pathname_prefix=server.config['URL_BASE_PATHNAME'],
+        suppress_callback_exceptions=True,
+    )
 
     app.title = server.config['TITLE']
-    app.config.routes_pathname_prefix = server.config['ROUTES_PATHNAME_PREFIX']
-
-    # Suppress callback validation as we will be initialising callbacks that target
-    # element IDs that won't yet occur in the layout.
-    app.config.supress_callback_exceptions = True
-
+    app.scripts.config.serve_locally = server.config['SERVE_LOCALLY']
+    app.css.config.serve_locally = server.config['SERVE_LOCALLY']
     return app

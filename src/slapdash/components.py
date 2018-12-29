@@ -1,79 +1,75 @@
-from flask import current_app as server
 import dash_core_components as dcc
 import dash_html_components as html
+import dash_bootstrap_components as dbc
+from flask import current_app as server
 
-from .utils import component, get_url
-
-
-@component
-def Row(children=None, **kwargs):
-    """A convenience component that makes a Bootstrap row"""
-    return html.Div(children=children, className='row', **kwargs)
+from .utils import get_url, component
 
 
-@component  
-def Col(children=None, bp=None, size=None, **kwargs):
-    """A convenience component that makes a Bootstrap column"""
-    if size is None and bp is None:
-        col_class = 'col'
-    elif bp is None:
-        col_class = f'col-{size}'
-    else:        
-        col_class = f'col-{bp}-{size}'
-    return html.Div(children=children, className=col_class, **kwargs)
+def fa(className):
+    """A convenience component for adding Font Awesome icons"""
+    return html.I(className=className)
 
 
 @component
-def Header(children=None, **kwargs):
-    return html.Header(html.H1(
+def make_brand(**kwargs):
+    return html.Header(
+        className="brand",
+        children=dcc.Link(
+            href=get_url(''),
+            children=html.H1(
+                [
+                    fa('far fa-chart-bar'),
+                    server.config['TITLE'],
+                ]
+            )
+        ),
+        **kwargs
+    )
+
+
+@component
+def make_header(**kwargs):
+    return html.Nav(
+        id="header",
+        className="navbar navbar-dark navbar-expand bg-dark sticky-top",
         children=[
-            Fa('bar-chart'), 
-            dcc.Link(
-                server.config['TITLE'],
-                href=server.config['ROUTES_PATHNAME_PREFIX']
+            make_brand(),
+            html.Ul(
+                id=server.config['NAVBAR_CONTAINER_ID'],
+                className="navbar-nav ml-auto"
             )
         ],
         **kwargs
-    ))
-
-
-def Fa(name):
-    """A convenience component for adding Font Awesome icons"""
-    return html.I(className=f"fa fa-{name}")
+    )
 
 
 @component
-def Navbar(
-        children=None,
-        items=None,
-        current_path=None,
-        first_root_nav=True,
-        **kwargs):
+def make_sidebar(**kwargs):
+    return html.Nav(
+        id=f"sidebar",
+        className="nav navbar-dark bg-dark flex-column align-items-start",
+        children=[
+            make_brand(),
+            html.Div(id=server.config['NAVBAR_CONTAINER_ID']),
+        ],
+        **kwargs
+    )
 
-    items = items if items is not None else []
+
+@component
+def make_nav(items, current_path, **kwargs):
     nav_items = []
-    route_prefix = server.config['ROUTES_PATHNAME_PREFIX']
-    
+    route_prefix = server.config['URL_BASE_PATHNAME']
     for i, (path, text) in enumerate(items):
         href = get_url(path)
-        # bool indicating if: on the root url and this is the first nav item       
-        is_first_root_nav = (current_path == route_prefix) and (i == 0)
-        # active if we are on the path of this nav item, or if first_root_nav is
-        # enabled and applies for this path
-        is_active = (current_path == href) or (first_root_nav and is_first_root_nav) 
-        className = 'nav-item active' if is_active else 'nav-item'
-        nav_items.append(html.Li(
-            className=className,
-            children=dcc.Link(text, href=href, className='nav-link')
-        ))
-
-    return html.Nav(
-        className=f'navbar',
-        children=[
-            html.Ul(
-                className=f'nav',
-                children=nav_items
-            ),
-        ],
-        **kwargs,
+        active = (current_path == href) or (i == 0 and current_path ==
+                                            route_prefix) 
+        nav_item = dbc.NavItem(dbc.NavLink(text, href=href, active=active))
+        nav_items.append(nav_item)
+    return html.Ul(
+        nav_items,
+        className="navbar-nav",
+        **kwargs
     )
+

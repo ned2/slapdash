@@ -2,10 +2,10 @@ from collections import Counter
 
 import dash_core_components as dcc
 import dash_html_components as html
+import dash_bootstrap_components as dbc
 from dash.dependencies import Input, State, Output
 
 from ..app import app
-from ..components import Col, Row
 
 
 layout = html.Div([
@@ -14,32 +14,41 @@ layout = html.Div([
 
 This demo counts the number of characters in the text box and updates a bar
 chart with their frequency as you type."""),
-    html.Div(
+    dbc.FormGroup(
         dcc.Textarea(
             id='text-input',
             value='Type some text into me!',
             style={'width':'40em', 'height': '5em'},
+            className='form-control',
         )
     ),
-    html.Div('Sort by:'),
-    dcc.RadioItems(
-        id='sort-type',
-        options=[
-            {'label': 'Frequency', 'value': 'frequency'},
-            {'label': 'Character code', 'value': 'code'},
-        ],
-        value='frequency'
+    dbc.FormGroup(
+        [
+            dbc.Label('Sort by:'),
+            dbc.RadioItems(
+                id='sort-type',
+                options=[
+                    {'label': 'Frequency', 'value': 'frequency'},
+                    {'label': 'Character code', 'value': 'code'},
+                ],
+                value='frequency'
+            ),
+        ]
     ),
-    html.Div('Normalize character case?'),
-    dcc.RadioItems(
-        id='normalize',
-        options=[
-            {'label': 'No', 'value': 'no'},
-            {'label': 'Yes', 'value': 'yes'},
-        ],
-        value='no'
+    dbc.FormGroup(
+        [
+            dbc.Label('Normalize character case?'),
+            dbc.RadioItems(
+                id='normalize',
+                options=[
+                    {'label': 'No', 'value': 'no'},
+                    {'label': 'Yes', 'value': 'yes'},
+                ],
+                value='no'
+            )
+        ]
     ),
-    dcc.Graph(id='graph', className='red')
+    dcc.Graph(id='graph')
 ])
 
 
@@ -78,4 +87,3 @@ def callback(text, sort_type, normalize):
             'font': {'size': 16}
         },
     }
-

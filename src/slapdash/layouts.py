@@ -1,67 +1,49 @@
+"""Contains layouts suitable for being the value of the 'layout' attribute of
+Dash app instances.
+"""
+
 from flask import current_app as server
 import dash_core_components as dcc
 import dash_html_components as html
+import dash_bootstrap_components as dbc
 
-from .exceptions import ValidationError
-from .components import Col, Row, Header
-
-
-"""Contains layouts suitable for being the value of the 'layout' attribute of
-Dash app instances."""
+from .components import make_header, make_sidebar
 
 
 def main_layout_header():
     """Dash layout with a top-header"""
-    return html.Div([
-        html.Div(
-            id="header",
-            children=[
-                Header(),
-                html.Div(id=server.config['NAVBAR_CONTAINER_ID']),
-            ]
-        ),
-        html.Div(
-            className='container-fluid',
-            children=Row(
-                Col(id=server.config['CONTENT_CONTAINER_ID'])
-            )
-        ),
-        dcc.Location(id='url', refresh=False)
-    ])
+    return html.Div(
+        [
+            make_header(),
+            dbc.Container(
+                dbc.Row(dbc.Col(id=server.config["CONTENT_CONTAINER_ID"])),
+                fluid=True
+            ),
+            dcc.Location(id="url", refresh=False),
+        ]
+    )
 
 
-# NOTE: not quite working yet
 def main_layout_sidebar():
     """Dash layout with a sidebar"""
-    return html.Div([
-        html.Div(
-            className='container-fluid',
-            children=Row([
-                Col(
-                    size=2,
-                    children=[
-                        Row(Col(Header())),
-                        Row(Col(id=server.config['NAVBAR_CONTAINER_ID']))
-                    ]),
-                Col(
-                    id=server.config['CONTENT_CONTAINER_ID'],
-                    size=10,
-                    className='offset-2'
+    return html.Div(
+        [
+            dbc.Container(
+                fluid=True,
+                children=dbc.Row(
+                    [
+                        dbc.Col(
+                            make_sidebar(className="px-2"),
+                            width=2,
+                            className="px-0"
+                        ),
+                        dbc.Col(
+                            id=server.config["CONTENT_CONTAINER_ID"],
+                            width=10,
+                        ),
+                    ]
                 ),
-            ])
-        ),
-        dcc.Location(id='url', refresh=False)
-    ])
-
-
-def main_layout_fullpage():
-    """Top level Dash layout taking up entire window"""
-    return html.Div([
-        html.Div(
-            className='container-fluid',
-            children=Row(
-                Col(id=server.config['CONTENT_CONTAINER_ID'])
-            )
-        ),
-        dcc.Location(id='url', refresh=False),
-    ])
+            ),
+            dcc.Location(id="url", refresh=False),
+        ]
+    )
