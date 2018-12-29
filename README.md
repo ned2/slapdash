@@ -44,7 +44,7 @@ a couple of arguments optional parameters, which you can discover with the
 `--help` flag. The `--debug` flag is particularly useful, activating the Dash
 dev tools, including hot reloading.
 
-    $ python run_flask.py --debug
+    $ python run-flask.py --debug
 
 You can run your app using a WSGI server (such as Gunicorn) with the `wsgi.py`
 entry point like so:
@@ -69,7 +69,6 @@ Tools](https://dash.plot.ly/devtools) section of the Dash Docs for more details.
 * `index.py` Contains the URL routes and corresponding callback router, as well
 as the entries to be used for the nav bar, along with the corresponding callback
 for the nav bar.
-* `pages.py` Custom pages to link to routes go here.
 * `wsgi.py` Contains the Flask `application` attribute suitable for pointing WSGI
   servers at.
 * `settings.py` Configurable settings for the application. 
@@ -87,12 +86,12 @@ for the nav bar.
 Slapdash includes a few libraries for getting fully functional applications off
 the ground faster. These include:
 
-* [Bootstrap](https://getbootstrap.com) Just the CSS.
+* [Bootstrap](https://getbootstrap.com) - Just the CSS.
 * [Dash Bootstrap
   Components](https://dash-bootstrap-components.opensource.asidatascience.com/)
-  A suite of Dash components that wrap Bootstrap classes, allowing for cleaner
+   - A suite of Dash components that wrap Bootstrap classes, allowing for cleaner
   integration of Bootstrap with Dash layouts.
-* [Font Awesome](http://fontawesome.io) Because everyone wants pretty icons.
+* [Font Awesome](http://fontawesome.io) - Because everyone wants pretty icons.
 
 
 ## Useful References
