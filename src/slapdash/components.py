@@ -14,14 +14,15 @@ def fa(className):
 @component
 def make_brand(**kwargs):
     return html.Header(
-        html.H1(
-            [
-                fa('far fa-chart-bar'),
-                dcc.Link(
+        className="brand",
+        children=dcc.Link(
+            href=get_url(''),
+            children=html.H1(
+                [
+                    fa('far fa-chart-bar'),
                     server.config['TITLE'],
-                    href=get_url('')
-                )
-            ],
+                ]
+            )
         ),
         **kwargs
     )
