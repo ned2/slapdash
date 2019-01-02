@@ -7,9 +7,11 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
+from .utils import validate_layout
 from .components import make_header, make_sidebar
 
 
+@validate_layout
 def main_layout_header():
     """Dash layout with a top-header"""
     return html.Div(
@@ -24,6 +26,7 @@ def main_layout_header():
     )
 
 
+@validate_layout
 def main_layout_sidebar():
     """Dash layout with a sidebar"""
     return html.Div(
