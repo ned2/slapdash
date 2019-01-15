@@ -119,8 +119,14 @@ PRs are welcome! If you have broader changes in mind, then creating an issue fir
 ### Seeting up a Dev Environment
 
 1. Install Slapdash into your virtualenv:
+    ```
     $ pip install -e setup.py
+    ```
 2. Install the development requirements:
+    ```
     $ pip install -r requirements-dev.txt
+    ```
 3. Install the pre-commit hook (for the Black code formatter)
+    ```
     $ pre-commit install
+    ```
