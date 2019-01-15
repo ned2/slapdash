@@ -16,5 +16,3 @@ with server.app_context():
 
     # configure the Dash instance's layout
     app.layout = main_layout_sidebar()
-
-
