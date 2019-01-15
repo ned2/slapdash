@@ -1,4 +1,5 @@
 from collections import Counter
+from textwrap import dedent
 
 import dash_core_components as dcc
 import dash_html_components as html
@@ -9,17 +10,16 @@ from ..app import app
 
 
 layout = html.Div([
-    dcc.Markdown("""
-# Character Counter
+    dcc.Markdown(dedent("""\
+    # Character Counter
 
-This demo counts the number of characters in the text box and updates a bar
-chart with their frequency as you type."""),
+    This demo counts the number of characters in the text box and updates a bar
+    chart with their frequency as you type. """)),
     dbc.FormGroup(
-        dcc.Textarea(
+        dbc.Textarea(
             id='text-input',
             value='Type some text into me!',
             style={'width':'40em', 'height': '5em'},
-            className='form-control',
         )
     ),
     dbc.FormGroup(
