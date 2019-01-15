@@ -24,7 +24,7 @@ After cloning/downloading the repository, simply install Slapdash as a package
 into your target virtualenv:
 
     cd <PATH_TO_SLAPDASH>
-    pip install -e .
+    pip install -e setup.py
 
 ## Usage
 
@@ -110,3 +110,17 @@ the ground faster. These include:
 4. [Dash Show and Tell Community Thread](https://community.plot.ly/t/show-and-tell-community-thread-tada)
 
 4. [The Dash GitHub Repository](https://github.com/plotly/dash)
+
+
+## Contributing
+
+PRs are welcome! If you have broader changes in mind, then creating an issue first for discussion would be best.
+
+### Seeting up a Dev Environment
+
+1. Install Slapdash into your virtualenv:
+    $ pip install -e setup.py
+2. Install the development requirements:
+    $ pip install -r requirements-dev.txt
+3. Install the pre-commit hook (for the Black code formatter)
+    $ pre-commit install
