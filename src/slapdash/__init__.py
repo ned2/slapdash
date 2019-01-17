@@ -1,6 +1,8 @@
 from flask import Flask
 from dash import Dash
 
+from .utils import get_dash_args_from_flask_config
+
 
 def create_flask(config_object=f"{__package__}.settings"):
     """Create the Flask instance for this application"""
@@ -20,13 +22,21 @@ def create_dash(server):
     """Create the Dash instance for this application"""
     app = Dash(
         server=server,
-        external_stylesheets=server.config["EXTERNAL_STYLESHEETS"],
-        external_scripts=server.config["EXTERNAL_SCRIPTS"],
-        routes_pathname_prefix=server.config["URL_BASE_PATHNAME"],
         suppress_callback_exceptions=True,
+        **get_dash_args_from_flask_config(server.config),
     )
 
+    # Update the Flask config a default "TITLE" and with any new Dash
+    # configuration parameters that might have been updated so that we can
+    # access Dash config easily from anywhere in the project with Flask's
+    # 'current_app'
+    server.config["TITLE"] = "Dash"
+    server.config.update({key.upper(): val for key, val in app.config.items()})
+
     app.title = server.config["TITLE"]
-    app.scripts.config.serve_locally = server.config["SERVE_LOCALLY"]
-    app.css.config.serve_locally = server.config["SERVE_LOCALLY"]
+
+    if "SERVE_LOCALLY" in server.config:
+        app.scripts.config.serve_locally = server.config["SERVE_LOCALLY"]
+        app.css.config.serve_locally = server.config["SERVE_LOCALLY"]
+
     return app
