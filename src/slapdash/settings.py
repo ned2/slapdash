@@ -3,6 +3,10 @@
 # keword arguments will be passed They must be in UPPER CASE in order to take effect. For more information see
 # http://flask.pocoo.org/docs/config.
 
+# Your App's title. The value of this parameter will be propagated into
+# `app.title`
+TITLE = "Slapdash"
+
 # The value of this parameter will be propagated into both
 # `app.scripts.config.serve_locally` and `app.css.config.serve_locally`
 SERVE_LOCALLY = True
