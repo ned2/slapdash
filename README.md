@@ -23,8 +23,7 @@ _Note: Slapdash requires Python 3.6+_
 After cloning/downloading the repository, simply install Slapdash as a package
 into your target virtualenv:
 
-    cd <PATH_TO_SLAPDASH>
-    pip install -e setup.py
+    pip install -e PATH_TO_SLAPDASH
 
 ## Usage
 
