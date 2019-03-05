@@ -21,6 +21,7 @@ def create_flask(config_object=f"{__package__}.settings"):
 def create_dash(server):
     """Create the Dash instance for this application"""
     app = Dash(
+        name=__package__,
         server=server,
         suppress_callback_exceptions=True,
         **get_dash_args_from_flask_config(server.config),
