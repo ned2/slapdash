@@ -117,9 +117,11 @@ PRs are welcome! If you have broader changes in mind, then creating an issue fir
 
 ### Seeting up a Dev Environment
 
+After changing directory to the top level Slapdash directory:
+
 1. Install Slapdash into your virtualenv:
     ```
-    $ pip install -e setup.py
+    $ pip install -e .
     ```
 2. Install the development requirements:
     ```
