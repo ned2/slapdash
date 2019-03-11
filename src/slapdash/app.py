@@ -16,13 +16,11 @@ with server.app_context():
     # to get their layouts, but that also triggers the callbacks
     # to be loaded, however the layout has yet to be assigned! crap
     from .urls import URLS
-    server.config['URLS'] = URLS
+
+    server.config["URLS"] = URLS
 
     # configure the Dash instance's layout
     app.layout = main_layout_sidebar
 
     # load the rest of our Dash app
     from . import index
-
-
-

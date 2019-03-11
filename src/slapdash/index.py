@@ -12,11 +12,13 @@ from .utils import get_url
 # The router
 #
 
-ROUTES = {get_url(route): layout for route, layout in server.config['URLS']}
+ROUTES = {get_url(route): layout for route, layout in server.config["URLS"]}
 
 
-@app.callback(Output(server.config['CONTENT_CONTAINER_ID'], 'children'),
-              [Input('url', 'pathname')])
+@app.callback(
+    Output(server.config["CONTENT_CONTAINER_ID"], "children"),
+    [Input("url", "pathname")],
+)
 def router(pathname):
     """The router"""
     default_layout = page_not_found(pathname)
@@ -32,23 +34,15 @@ def router(pathname):
 # URL_BASE_PATHNAME) and 'display' is a valid value for the `children` keyword
 # argument for a Dash component (ie a Dash Component or a string).
 NAV_ITEMS = (
-    (
-        "character-counter",
-        html.Div([fa("fas fa-keyboard"), "Character Counter"])
-    ),
-    (
-        "page2",
-        html.Div([fa("fas fa-chart-area"), "Page 2"])
-    ),
-    (
-        "page3",
-        html.Div([fa("fas fa-chart-line"), "Page 3"])
-    ),
+    ("character-counter", html.Div([fa("fas fa-keyboard"), "Character Counter"])),
+    ("page2", html.Div([fa("fas fa-chart-area"), "Page 2"])),
+    ("page3", html.Div([fa("fas fa-chart-line"), "Page 3"])),
 )
 
 
-@app.callback(Output(server.config['NAVBAR_CONTAINER_ID'], 'children'),
-              [Input('url', 'pathname')])
+@app.callback(
+    Output(server.config["NAVBAR_CONTAINER_ID"], "children"), [Input("url", "pathname")]
+)
 def update_nav(pathname):
     """Create the navbar with the current page set to active"""
     if pathname is None:
