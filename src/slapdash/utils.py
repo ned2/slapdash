@@ -1,5 +1,6 @@
 from functools import wraps
 
+import dash_html_components as html
 from flask import has_request_context
 from flask import current_app as server
 
@@ -19,8 +20,8 @@ def validate_layout(func):
             return requested_layout
         # Not handling a request, return a layout with every page
         # layout concatenated together for validation 
-        all_layouts = [requested_layout]
-        return all_layouts + [url[1] for url in server.config['URLS']]
+        layouts = [requested_layout] + [url[1] for url in server.config['URLS']]
+        return html.Div(layouts)
     return function_wrapper        
 
 
