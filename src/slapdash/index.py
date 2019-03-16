@@ -10,8 +10,8 @@ from .components import fa
 # string corresponding to path of the route (will be prefixed with Dash's
 # 'routes_pathname_prefix' and 'layout' is a Dash Component.
 urls = (
-    ("", character_counter.layout),
-    ("character-counter", character_counter.layout),
+    ("", character_counter.get_layout),
+    ("character-counter", character_counter.get_layout),
     ("page2", page2.layout),
     ("page3", page3.layout),
 )

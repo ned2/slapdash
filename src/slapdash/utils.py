@@ -1,14 +1,18 @@
 import inspect
 from functools import wraps
+from urllib.parse import parse_qs
 
 import dash
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Output, Input
 from dash.exceptions import PreventUpdate
+from dash.development.base_component import Component
 from flask import current_app as server
+from werkzeug.datastructures import MultiDict
 
 from .pages import page_not_found
+from .exceptions import InvalidLayoutError
 
 
 def component(func):
@@ -60,12 +64,39 @@ class DashRouter:
 
         @app.callback(
             Output(app.server.config["CONTENT_CONTAINER_ID"], "children"),
-            [Input("url", "pathname")],
+            [
+                Input(server.config["LOCATION_COMPONENT_ID"], "pathname"),
+                Input(server.config["LOCATION_COMPONENT_ID"], "search"),
+            ],
         )
-        def router(pathname):
+        def router_callback(pathname, search):
             """The router"""
-            default_layout = page_not_found(pathname)
-            return self.routes.get(pathname, default_layout)
+            if pathname is None:
+                raise PreventUpdate("Ignoring first Location.pathname callback")
+
+            page = self.routes.get(pathname, None)
+
+            if page is None:
+                layout = page_not_found(pathname)
+            elif isinstance(page, Component):
+                layout = page
+            elif callable(page):
+                args = MultiDict(parse_qs(search.lstrip("?")))
+                layout = page(args=args)
+                if not isinstance(layout, Component):
+                    msg = (
+                        "Layout function must return a Dash Component.\n\n"
+                        f"Function {page.__name__} from module {page.__module__} "
+                        f"returned value of type {type(layout)} instead."
+                    )
+                    raise InvalidLayoutError(msg)
+            else:
+                msg = (
+                    "Page layouts must be a Dash Component or a callable that "
+                    f"returns a Dash Component. Received value of type {type(page)}."
+                )
+                raise InvalidLayoutError(msg)
+            return layout
 
 
 class DashNavBar:
@@ -87,13 +118,13 @@ class DashNavBar:
 
         @app.callback(
             Output(server.config["NAVBAR_CONTAINER_ID"], "children"),
-            [Input("url", "pathname")],
+            [Input(server.config["LOCATION_COMPONENT_ID"], "pathname")],
         )
-        def update_nav(pathname):
+        def update_nav_callback(pathname):
             """Create the navbar with the current page set to active"""
             if pathname is None:
                 # pathname is None on the first load of the app; ignore this
-                raise PreventUpdate("Ignoring first url.pathname callback")
+                raise PreventUpdate("Ignoring first Location.pathname callback")
             return self.make_nav(pathname)
 
     @component

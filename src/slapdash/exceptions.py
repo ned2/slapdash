@@ -2,5 +2,5 @@ class SlapdashBaseException(Exception):
     pass
 
 
-class CustomError(SlapdashBaseException):
+class InvalidLayoutError(SlapdashBaseException):
     pass

@@ -18,7 +18,7 @@ def main_layout_header():
             dbc.Container(
                 dbc.Row(dbc.Col(id=server.config["CONTENT_CONTAINER_ID"])), fluid=True
             ),
-            dcc.Location(id="url", refresh=False),
+            dcc.Location(id=server.config["LOCATION_COMPONENT_ID"], refresh=False),
         ]
     )
 
@@ -38,6 +38,6 @@ def main_layout_sidebar():
                     ]
                 ),
             ),
-            dcc.Location(id="url", refresh=False),
+            dcc.Location(id=server.config["LOCATION_COMPONENT_ID"], refresh=False),
         ]
     )
