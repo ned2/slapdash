@@ -1,16 +1,10 @@
 import dash_html_components as html
-from dash.dependencies import Output, Input
-from dash.exceptions import PreventUpdate
 
 from .app import app
-from .utils import Router
+from .utils import DashRouter, DashNavBar
 from .pages import character_counter, page2, page3
-from .components import make_nav, fa
+from .components import fa
 
-
-#
-# The router
-#
 
 # Ordered iterable of routes: tuples of (route, layout), where 'route' is a
 # string corresponding to path of the route (will be prefixed with Dash's
@@ -22,32 +16,15 @@ urls = (
     ("page3", page3.layout),
 )
 
-
-router = Router(app, urls)
-
-
-#
-# The Navbar
-#
-
 # Ordered iterable of navbar items: tuples of `(route, display)`, where `route`
 # is a string corresponding to path of the route (will be prefixed with
 # URL_BASE_PATHNAME) and 'display' is a valid value for the `children` keyword
 # argument for a Dash component (ie a Dash Component or a string).
-NAV_ITEMS = (
+nav_items = (
     ("character-counter", html.Div([fa("fas fa-keyboard"), "Character Counter"])),
     ("page2", html.Div([fa("fas fa-chart-area"), "Page 2"])),
     ("page3", html.Div([fa("fas fa-chart-line"), "Page 3"])),
 )
 
-
-@app.callback(
-    Output(app.server.config["NAVBAR_CONTAINER_ID"], "children"),
-    [Input("url", "pathname")],
-)
-def update_nav(pathname):
-    """Create the navbar with the current page set to active"""
-    if pathname is None:
-        # pathname is None on the first load of the app; ignore this
-        raise PreventUpdate("Ignoring first url.pathname callback")
-    return make_nav(NAV_ITEMS, pathname)
+router = DashRouter(app, urls)
+navbar = DashNavBar(app, nav_items)

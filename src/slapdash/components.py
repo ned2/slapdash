@@ -48,15 +48,3 @@ def make_sidebar(**kwargs):
         children=[make_brand(), html.Div(id=server.config["NAVBAR_CONTAINER_ID"])],
         **kwargs,
     )
-
-
-@component
-def make_nav(items, current_path, **kwargs):
-    nav_items = []
-    route_prefix = server.config["ROUTES_PATHNAME_PREFIX"]
-    for i, (path, text) in enumerate(items):
-        href = get_url(path)
-        active = (current_path == href) or (i == 0 and current_path == route_prefix)
-        nav_item = dbc.NavItem(dbc.NavLink(text, href=href, active=active))
-        nav_items.append(nav_item)
-    return html.Ul(nav_items, className="navbar-nav", **kwargs)

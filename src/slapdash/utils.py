@@ -2,47 +2,13 @@ import inspect
 from functools import wraps
 
 import dash
+import dash_html_components as html
+import dash_bootstrap_components as dbc
 from dash.dependencies import Output, Input
 from dash.exceptions import PreventUpdate
 from flask import current_app as server
 
 from .pages import page_not_found
-
-
-class Router:
-    """A URL Router for Dash multipage apps"""
-
-    def __init__(self, app, urls):
-        """Initialise the router.
-
-        Params:
-        app:   A Dash instance to associate the router with.
-        urls:  Ordered iterable of routes: tuples of (route, layout). 'route' is a
-               string corresponding to the URL path of the route (will be prefixed with Dash's
-               'routes_pathname_prefix' and 'layout' is a Dash Component.
-        """
-        self.routes = {get_url(route): layout for route, layout in urls}
-
-        @app.callback(
-            Output(app.server.config["CONTENT_CONTAINER_ID"], "children"),
-            [Input("url", "pathname")],
-        )
-        def router(pathname):
-            """The router"""
-            default_layout = page_not_found(pathname)
-            return self.routes.get(pathname, default_layout)
-
-
-def get_dash_args_from_flask_config(config):
-    """Get a dict of Dash params that were specified """
-    # all arg names less 'self'
-    dash_args = set(inspect.getfullargspec(dash.Dash.__init__).args[1:])
-    return {key.lower(): val for key, val in config.items() if key.lower() in dash_args}
-
-
-def get_url(path):
-    """Expands an internal URL to include prefix the app is mounted at"""
-    return f"{server.config['ROUTES_PATHNAME_PREFIX']}{path}"
 
 
 def component(func):
@@ -76,3 +42,79 @@ def component(func):
         return result
 
     return function_wrapper
+
+
+class DashRouter:
+    """A URL Router for Dash multipage apps"""
+
+    def __init__(self, app, urls):
+        """Initialise the router.
+
+        Params:
+        app:   A Dash instance to associate the router with.
+        urls:  Ordered iterable of routes: tuples of (route, layout). 'route' is a
+               string corresponding to the URL path of the route (will be prefixed
+               with Dash's 'routes_pathname_prefix' and 'layout' is a Dash Component.
+        """
+        self.routes = {get_url(route): layout for route, layout in urls}
+
+        @app.callback(
+            Output(app.server.config["CONTENT_CONTAINER_ID"], "children"),
+            [Input("url", "pathname")],
+        )
+        def router(pathname):
+            """The router"""
+            default_layout = page_not_found(pathname)
+            return self.routes.get(pathname, default_layout)
+
+
+class DashNavBar:
+    """A Dash navbar for multipage apps"""
+
+    def __init__(self, app, nav_items):
+        """Initialise the navbar.
+
+        Params:
+        app:        A Dash instance to associate the router with.
+
+        nav_items:  Ordered iterable of navbar items: tuples of `(route, display)`,
+                    where `route` is a string corresponding to path of the route
+                    (will be prefixed with Dash's 'routes_pathname_prefix') and
+                    'display' is a valid value for the `children` keyword argument
+                    for a Dash component (ie a Dash Component or a string).
+        """
+        self.nav_items = nav_items
+
+        @app.callback(
+            Output(server.config["NAVBAR_CONTAINER_ID"], "children"),
+            [Input("url", "pathname")],
+        )
+        def update_nav(pathname):
+            """Create the navbar with the current page set to active"""
+            if pathname is None:
+                # pathname is None on the first load of the app; ignore this
+                raise PreventUpdate("Ignoring first url.pathname callback")
+            return self.make_nav(pathname)
+
+    @component
+    def make_nav(self, current_path, **kwargs):
+        nav_items = []
+        route_prefix = server.config["ROUTES_PATHNAME_PREFIX"]
+        for i, (path, text) in enumerate(self.nav_items):
+            href = get_url(path)
+            active = (current_path == href) or (i == 0 and current_path == route_prefix)
+            nav_item = dbc.NavItem(dbc.NavLink(text, href=href, active=active))
+            nav_items.append(nav_item)
+        return html.Ul(nav_items, className="navbar-nav", **kwargs)
+
+
+def get_dash_args_from_flask_config(config):
+    """Get a dict of Dash params that were specified """
+    # all arg names less 'self'
+    dash_args = set(inspect.getfullargspec(dash.Dash.__init__).args[1:])
+    return {key.lower(): val for key, val in config.items() if key.lower() in dash_args}
+
+
+def get_url(path):
+    """Expands an internal URL to include prefix the app is mounted at"""
+    return f"{server.config['ROUTES_PATHNAME_PREFIX']}{path}"
