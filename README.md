@@ -67,9 +67,8 @@ Tools](https://dash.plot.ly/devtools) section of the Dash Docs for more details.
 * `app.py` Entry point into the app. Creates both the Flask and Dash instances
   used for the app and then imports the rest of the app through the `index`
   module.
-* `index.py` Contains the URL routes and corresponding callback router, as well
-as the entries to be used for the nav bar, along with the corresponding callback
-for the nav bar.
+* `index.py` URL routes and the router are defined here, along with navbar and its
+  corresponding entries.
 * `wsgi.py` Contains the Flask `application` attribute suitable for pointing WSGI
   servers at.
 * `settings.py` Configurable settings for the application. 
@@ -78,7 +77,8 @@ for the nav bar.
 * `utils.py` Utility things.
 * `pages` The suggested project layout is to place each page of your app within
   this directory, treating each page as a modular sub-app with a `layouts`
-  attribute that you can register with the router in `index.py`.
+  attribute containing a Dash Component (or callable that returns a Dash
+  component) that you can register with the router in `index.py`.
 * `assets` Location for static assets that will be exposed to the web server. 
 
 
@@ -87,12 +87,14 @@ for the nav bar.
 Slapdash includes a few libraries for getting fully functional applications off
 the ground faster. These include:
 
-* [Bootstrap](https://getbootstrap.com) - Just the CSS.
 * [Dash Bootstrap
-  Components](https://dash-bootstrap-components.opensource.asidatascience.com/)
-   - A suite of Dash components that wrap Bootstrap classes, allowing for cleaner
+  Components](https://dash-bootstrap-components.opensource.asidatascience.com/):
+  A suite of Dash components that wrap Bootstrap classes, allowing for cleaner
   integration of Bootstrap with Dash layouts.
-* [Font Awesome](http://fontawesome.io) - Because everyone wants pretty icons.
+* [Bootstrap](https://getbootstrap.com) - Local copy of Bootstrap CSS files so you
+  can run the app offline.
+* [Font Awesome](http://fontawesome.io) - Local copy of Font Awesome files for
+  offline access. Because everyone wants pretty icons.
 
 
 ## Useful References
