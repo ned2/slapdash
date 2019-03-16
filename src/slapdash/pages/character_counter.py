@@ -18,12 +18,12 @@ def get_layout(args):
         [
             dcc.Markdown(
                 dedent(
-                    """\
-                # Character Counter
-
-                This demo counts the number of characters in the text box and
-                updates a bar chart with their frequency as you type.
-                """
+                    """
+                    # Character Counter
+                    
+                    This demo counts the number of characters in the text box and
+                    updates a bar chart with their frequency as you type.
+                    """
                 )
             ),
             dbc.FormGroup(
