@@ -2,7 +2,35 @@ import inspect
 from functools import wraps
 
 import dash
+from dash.dependencies import Output, Input
+from dash.exceptions import PreventUpdate
 from flask import current_app as server
+
+from .pages import page_not_found
+
+
+class Router:
+    """A URL Router for Dash multipage apps"""
+
+    def __init__(self, app, urls):
+        """Initialise the router.
+
+        Params:
+        app:   A Dash instance to associate the router with.
+        urls:  Ordered iterable of routes: tuples of (route, layout). 'route' is a
+               string corresponding to the URL path of the route (will be prefixed with Dash's
+               'routes_pathname_prefix' and 'layout' is a Dash Component.
+        """
+        self.routes = {get_url(route): layout for route, layout in urls}
+
+        @app.callback(
+            Output(app.server.config["CONTENT_CONTAINER_ID"], "children"),
+            [Input("url", "pathname")],
+        )
+        def router(pathname):
+            """The router"""
+            default_layout = page_not_found(pathname)
+            return self.routes.get(pathname, default_layout)
 
 
 def get_dash_args_from_flask_config(config):
