@@ -39,20 +39,26 @@ into your target virtualenv:
 
 ## Running Your App
 
-You can launch the app using the `run-flask.py` script, which uses Flask's
-development server (and which shouldn't be used in production). The script takes
-a couple of arguments optional parameters, which you can discover with the
-`--help` flag. The `--debug` flag is particularly useful, activating the Dash
-dev tools, including hot reloading.
+Installing Slapdash will result into the `run-slapdash-dev` executable being
+installed into the same virtualenv, which will be available provided you have
+activated the virtualenv. This command invokes your Dash app's `run_server`
+method, which in turn uses the Flask development server to run your app.
 
-    $ python run-flask.py --debug
+    $ run-slapdash-dev
 
-You can run your app using a WSGI server (such as Gunicorn) with the `wsgi.py`
-entry point like so:
+The script takes a couple of arguments optional parameters, which you can
+discover with the `--help`. You may need to set the port using the `--port`
+parameter. If you need to expose your app outside your local machine, you will
+want to set `--host 0.0.0.0`.
+
+While convenient, the development webserver should *not* be used in
+production. You can run your app using a WSGI server (such as Gunicorn) with the
+`slapdash.wsgi` entry point (defined in `wsgi.py`) like so:
 
     $ gunicorn slapdash.wsgi
 
-Or if you'd rather not install the Slapdash package, relative to the root directory: 
+Or if you'd rather not install the `slapdash` package, relative to the root
+directory:
 
     $ gunicorn src.slapdash.wsgi
 
@@ -67,8 +73,8 @@ Tools](https://dash.plot.ly/devtools) section of the Dash Docs for more details.
 * `app.py` Entry point into the app. Creates both the Flask and Dash instances
   used for the app and then imports the rest of the app through the `index`
   module.
-* `index.py` URL routes and the router are defined here, along with navbar and its
-  corresponding entries.
+* `index.py` URL routes and the router are defined here, along with the navbar
+  and its corresponding entries.
 * `wsgi.py` Contains the Flask `application` attribute suitable for pointing WSGI
   servers at.
 * `settings.py` Configurable settings for the application. 
