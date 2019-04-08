@@ -10,7 +10,7 @@ DESCRIPTION = "Boilerplate for bootstrapping scalable multi-page Dash applicatio
 # These can be set to None if you want to omit them
 URL = "https://github.com/ned2/slapdash"
 AUTHOR = "Ned Letcher"
-EMAIL = "ned at nedned dot net"
+AUTHOR_EMAIL = "ned at nedned dot net"
 LICENSE = "MIT"
 REQUIRES_PYTHON = ">=3.6.0"
 VERSION = None  # get this from __version__.py
@@ -64,6 +64,6 @@ setup(
     packages=find_packages("src"),
     package_dir={"": "src"},
     include_package_data=True,
-    scripts=[],
+    scripts=["bin/"],
     entry_points={"console_scripts": ["run-slapdash-dev=slapdash.dev_cli:main"]},
 )
