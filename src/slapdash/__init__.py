@@ -1,6 +1,7 @@
 from flask import Flask
 from dash import Dash
 
+from .__version__ import __version__
 from .utils import get_dash_args_from_flask_config
 
 

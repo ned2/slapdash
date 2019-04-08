@@ -1,0 +1,2 @@
+include README.md
+include slapdash/src/slapdash *.csv
