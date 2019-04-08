@@ -1,0 +1,93 @@
+#!/usr/bin/env bash
+
+
+function usage (){
+    cat << EOF
+This script runs your Dash app with mod_wsgi-express. Script options are:
+
+  --port PORT           Runs the app on port PORT.
+
+  --processes PROCESSES Run the app with specified number of worker proccesses.
+
+  --settings PATH       Use the supplied PATH as a settings file that will take
+                        precedence over any settings within the internal
+                        settings.py file. Useful for providing production
+                        configuration. The path can be absolute or relative to the 
+                        working directory.
+
+  --debug               Run mod_wsgi-express with --debug-mode, --enable-debugger,
+                        and --log-to-terminal flags enabled.   
+
+  --echo                Don't run the app, just echo the underlying mod_wsgi-express 
+                        command that would have been run with the configuration 
+                        specified
+
+  --help                Show this message.
+EOF
+}
+
+
+SCRIPTPATH=$(cd $(dirname $0); pwd -P)
+PORT=8000
+PROCESSES=2
+SETTINGS_PATH=$(python -c "from slapdash import prod_settings; print(prod_settings.__file__)")
+
+
+# loop over all flags starting with '--' and processing them along with any
+# arguments if they have them
+while [[ ${1} == --* ]]; do
+    case ${1} in
+        --port)
+            PORT=${2}
+            shift 2
+            ;;
+        --debug)
+            DEBUGFLAGS="--debug-mode --enable-debugger --reload-on-changes"
+            shift 1
+            ;;
+        --processes)
+            PROCESSES=${2}
+            shift 2
+            ;;
+        --settings)
+            if [[ $2 = /* ]]; then
+                # Use the absolute path supplied
+                SETTINGS_PATH=${2}
+            else
+                # A relative path was supplied; append to the current working directory
+                SETTINGS_PATH=${PWD}/${2}                
+            fi
+            
+            shift 2
+            ;;
+        --echo)
+            ECHO=echo
+            shift 1
+            ;;
+        --help)
+            usage
+            exit
+            ;;
+        --*)
+            echo "Do not know option ${1}. Use --help for usage."
+            exit
+            ;;
+    esac
+done
+
+
+# Export location of the production settings file
+export SLAPDASH_SETTINGS=${SETTINGS_PATH}
+
+# Add any additional environment varaibles to be exported here
+
+
+${ECHO} mod_wsgi-express start-server \
+        --application-type module \
+        --entry-point segmenter.wsgi \
+        --port ${PORT} \
+        ${DEBUGFLAGS} \
+        --url-alias assets ${SCRIPTPATH}/src/segmenter/assets \
+        --processes ${PROCESSES} \
+        --compress-responses \
+        --isatty \
