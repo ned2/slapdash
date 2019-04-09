@@ -97,7 +97,10 @@ the second. The layout fragment can either be an instance of Dash's `Component`
 class (such as an `html.Div`) or a callable that returns a `Component` instance,
 such as the function `get_layout` in the above snippet. This callable should
 take a variable number of keyword arguments, as any query parameters present in
-the URL will be passed into the layout callable as keyword arguments. eg:
+the URL will be passed into the layout callable as keyword arguments. for
+example you could pass values into the layout function below using the URL
+`http://hostname?param1=value1&param2=value2`.
+
 
 ```python
 def get_layout(**query_params):
