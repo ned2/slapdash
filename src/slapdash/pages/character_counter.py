@@ -9,8 +9,8 @@ from dash.dependencies import Input, State, Output
 from ..app import app
 
 
-def get_layout(args):
-    initial_text = args.get("text", "Type some text into me!")
+def get_layout(**kwargs):
+    initial_text = kwargs.get("text", "Type some text into me!")
 
     # Note that if you need to access multiple values of an argument, you can
     # use args.getlist("param")
