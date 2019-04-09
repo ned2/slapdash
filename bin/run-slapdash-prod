@@ -28,6 +28,7 @@ EOF
 
 
 SCRIPTPATH=$(cd $(dirname $0); pwd -P)
+echo $SCRIPTPATH
 PORT=8000
 PROCESSES=2
 SETTINGS_PATH=$(python -c "from slapdash import prod_settings; print(prod_settings.__file__)")
@@ -86,10 +87,10 @@ export SLAPDASH_SETTINGS=${SETTINGS_PATH}
 # Run Apache! 
 ${ECHO} mod_wsgi-express start-server \
         --application-type module \
-        --entry-point segmenter.wsgi \
+        --entry-point slapdash.wsgi \
         --port ${PORT} \
         ${DEBUGFLAGS} \
-        --url-alias assets ${SCRIPTPATH}/src/segmenter/assets \
+        --url-alias assets ${SCRIPTPATH}/src/slapdash/assets \
         --processes ${PROCESSES} \
         --compress-responses \
         --isatty \
