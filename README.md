@@ -4,11 +4,14 @@
 
 [Dash](https://plot.ly/dash) is a Python framework for building analytical web
 applications. Slapdash provides a sensible project layout for quickly building
-out a multi-page Dash application with room for growth. It includes pre-built
-layouts based on Bootstrap (with the help of [Dash Bootstrap
+out a multi-page Dash application with room for growth. It also includes: 
+
+* Pre-built layouts based on Bootstrap (with the help of [Dash Bootstrap
 Components](https://dash-bootstrap-components.opensource.asidatascience.com)),
 which can be extended or swapped out for layouts constructed using your own
 Dash/CSS components.
+* Scripts for conveniently launching your app in both dev and prod environments
+* A URL router that helps you manage your application's pages 
 
 This project is intended for bootstrapping initial Dash applications, rather
 than being a dependency for your application. You shouldn't assume that
@@ -162,6 +165,9 @@ an Apache process (separate to any process already running and listening on port
 your app, and will also set up the Apache instance to serve your static assets
 much faster than would be the case through the Python worker processes.
 
+_Note:_ You will need to reinstall Slapdash in order for changes to the
+`run-slapdash-prod` script to take effect even if you installed Slapdash as an
+editable install with (ie `pip install -e`).
 
 ### Running with a different WSGI Server
 
@@ -171,7 +177,7 @@ so:
 
     $ gunicorn slapdash.wsgi
 
-Note: if you want to enable Dash's debug mode while running with a WSGI server,
+_Note:_ if you want to enable Dash's debug mode while running with a WSGI server,
 you'll need to export the `DASH_DEBUG` environment variable to `true`. See the
 [Dev Tools](https://dash.plot.ly/devtools) section of the Dash Docs for more
 details.
