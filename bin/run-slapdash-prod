@@ -42,6 +42,7 @@ while [[ ${1} == --* ]]; do
             shift 2
             ;;
         --debug)
+            export DASH_DEBUG=true
             DEBUGFLAGS="--debug-mode --enable-debugger --reload-on-changes"
             shift 1
             ;;
@@ -82,6 +83,7 @@ export SLAPDASH_SETTINGS=${SETTINGS_PATH}
 # Add any additional environment varaibles to be exported here
 
 
+# Run Apache! 
 ${ECHO} mod_wsgi-express start-server \
         --application-type module \
         --entry-point segmenter.wsgi \
@@ -91,3 +93,6 @@ ${ECHO} mod_wsgi-express start-server \
         --processes ${PROCESSES} \
         --compress-responses \
         --isatty \
+
+# TODO get the value of the assets folder name from the Dash config
+       

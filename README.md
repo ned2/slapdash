@@ -16,57 +16,6 @@ Slapdash's internal structure and interfaces will be stable, as they will
 change.
 
 
-## Installation
-
-_Note: Slapdash requires Python 3.6+_
-
-After cloning/downloading the repository, simply install Slapdash as a package
-into your target virtualenv:
-
-    pip install -e PATH_TO_SLAPDASH
-
-## Usage
-
-1. In `app.py`, select the main layout you want from `layouts.py`.
-1. Create the pages of your app in different files within the `pages` directory,
-   by defining within each a top-level `layout` attribute and callbacks registered
-   with the Dash `app` instance from the `app`module.
-1. Add your pages to the `URLS` attribute in `index.py`.
-1. Add desired pages to the `NAV_ITEMS` attribute in `index.py`.
-1. Modify `assets/slapdash.css` or add additional stylesheets in `assets`. 
-1. Modify config in `settings.py` as required.
-
-
-## Running Your App
-
-Installing Slapdash will result into the `run-slapdash-dev` executable being
-installed into the same virtualenv, which will be available provided you have
-activated the virtualenv. This command invokes your Dash app's `run_server`
-method, which in turn uses the Flask development server to run your app.
-
-    $ run-slapdash-dev
-
-The script takes a couple of arguments optional parameters, which you can
-discover with the `--help`. You may need to set the port using the `--port`
-parameter. If you need to expose your app outside your local machine, you will
-want to set `--host 0.0.0.0`.
-
-While convenient, the development webserver should *not* be used in
-production. You can run your app using a WSGI server (such as Gunicorn) with the
-`slapdash.wsgi` entry point (defined in `wsgi.py`) like so:
-
-    $ gunicorn slapdash.wsgi
-
-Or if you'd rather not install the `slapdash` package, relative to the root
-directory:
-
-    $ gunicorn src.slapdash.wsgi
-
-Note: if you want to enable Dash's debug mode while running with a WSGI server,
-you'll need to set the `DASH_DEBUG` environment variable to `true`. See the [Dev
-Tools](https://dash.plot.ly/devtools) section of the Dash Docs for more details.
-
-
 ## Boilerplate Overview
 
 * `__init__.py` Contains helper functions for creating the Flask and Dash instances.
@@ -78,14 +27,111 @@ Tools](https://dash.plot.ly/devtools) section of the Dash Docs for more details.
 * `wsgi.py` Contains the Flask `application` attribute suitable for pointing WSGI
   servers at.
 * `settings.py` Configurable settings for the application. 
+* `prod_settings.py` Configurable settings for running the application in a
+  production environment. Settings defined here will take precedence over those
+  found in `settings.py`.
 * `exceptions.py` Exceptions used by your app can be defined here.
 * `components.py` Convenient Python pseudo-components are defined here.
 * `utils.py` Utility things.
 * `pages` The suggested project layout is to place each page of your app within
-  this directory, treating each page as a modular sub-app with a `layouts`
-  attribute containing a Dash Component (or callable that returns a Dash
-  component) that you can register with the router in `index.py`.
+  this directory, treating each page as a modular sub-app containing a `layouts`
+  attribute that you can register with the router in `index.py`.
 * `assets` Location for static assets that will be exposed to the web server. 
+
+
+## Installation
+
+_Note: Slapdash requires Python 3.6+_
+
+After cloning/downloading the repository, simply install Slapdash as a package
+into your target virtualenv:
+
+    $ pip install PATH_TO_SLAPDASH
+
+During development you will likely want to perform an editable install so that
+changes to the source code take immediate effect on the installed package.
+
+    $ pip install -e PATH_TO_SLAPDASH
+    
+
+## Usage
+
+1. In `app.py`, select the main layout you want from `layouts.py`.
+1. Create the pages of your app in different files within the `pages` directory,
+   by defining within each a top-level `layout` attribute and callbacks registered
+   with the Dash `app` instance from the `app`module.
+1. Add the pages of your app to the URL router in`index.py`.
+1. Add any desired pages to nav bar in `index.py`.
+1. Modify `assets/slapdash.css` or add additional stylesheets in `assets`. 
+1. Modify config in `settings.py` as required.
+
+
+## Running Your App
+
+Slapdash comes with two convenience scripts for running your project in
+development and production environments, or you can use your own WSGI server to
+run the app.
+
+### run-slapdash-dev
+
+Installing Slapdash into your virtualenv will result into the `run-slapdash-dev`
+executable being installed into the same virtualenv. This command invokes your
+Dash app's `run_server` method, which in turn uses the Flask development server
+to run your app.
+
+    $ run-slapdash-dev
+
+The script takes a couple of arguments optional parameters, which you can
+discover with the `--help`. You may need to set the port using the `--port`
+parameter. If you need to expose your app outside your local machine, you will
+want to set `--host 0.0.0.0`.
+
+
+### run-slapdash-prod
+
+While convenient, the development webserver should *not* be used in
+production. Installing Slapdash will also result in the bash script
+`run-slapdash-prod` being installed in your virtualenv. This is a wrapper around
+the `mod_wsgi-express` command, which streamlines use of the [mod_wsgi Apache
+module](https://pypi.org/project/mod_wsgi/) to run your your app. You will need
+to have installed Apache. See installation instructions in the [mod_wsgi
+documentation](https://pypi.org/project/mod_wsgi/) (Note that Slapdash uses the
+`pip install` method for installing mod_wsgi). Like its development counterpart,
+`run-slapdash-prod` takes a range of command line arguments, which can be
+discovered with the `--help` flag.
+
+    $ run-slapdash-prod
+    
+`run-slapdash-prod` will also apply settings found in the module
+`slapdash.prod_settings` (or a custom Python file supplied with the `--settings`
+flag) and which take precedence over the same settings found in
+`slapdash.settings`.
+
+A notable advantage of using `mod_wsgi` over other WSGI servers is that we do
+not need to configure and run a web server separate to the WSGI server. When
+using other WSGI servers (such as Gunicorn or uWSGI), you do not want to expose
+them directly to web requests from the outside world for two reasons: 1)
+incoming requests will not be buffered, exposing you to potential denial of
+service attacks, and 2) you will be serving your static assets via Dash's Flask
+instance, which is slow. `run-slapdash-prod` uses `mod_wsgi-express` to spin up
+an Apache process (separate to any process already running and listening on port
+80) that will buffer requests, passing them off to the worker processes running
+your app, and will also set up the Apache instance to serve your static assets
+much faster than would be the case through the Python worker processes.
+
+
+### Running with a different WSGI Server
+
+You can easily run your app using a WSGI server of your choice (such as Gunicorn
+for example) with the `slapdash.wsgi` entry point (defined in `wsgi.py`) like
+so:
+
+    $ gunicorn slapdash.wsgi
+
+Note: if you want to enable Dash's debug mode while running with a WSGI server,
+you'll need to export the `DASH_DEBUG` environment variable to `true`. See the
+[Dev Tools](https://dash.plot.ly/devtools) section of the Dash Docs for more
+details.
 
 
 ## Included Libraries
@@ -121,7 +167,8 @@ the ground faster. These include:
 
 ## Contributing
 
-PRs are welcome! If you have broader changes in mind, then creating an issue first for discussion would be best.
+PRs are welcome! If you have broader changes in mind, then creating an issue
+first for discussion would be best.
 
 ### Seeting up a Dev Environment
 
