@@ -66,6 +66,49 @@ changes to the source code take immediate effect on the installed package.
 1. Modify config in `settings.py` as required.
 
 
+## The URL Router
+
+Slapdash uses [Dash's built-in support for creating multi-page
+apps](https://dash.plot.ly/urls). This involves creating a callback that targets
+a container `html.Div` in your layout, and injects layout fragments into the
+children property of the container when users click on links constructed with
+`dcc.Link`. Slapdash provides a convenience class `DashRouter`, which assists
+with the construction of this callback. The following snippet provides an
+example of its use:
+
+```python
+urls = (
+    ("", page1.layout),
+    ("page1", page1.layout),
+    ("page2", page2.layout),
+    ("page3", page3.get_layout),
+)
+
+router = DashRouter(app, urls)
+```
+
+The `DashRouter` class takes as input a Dash instance, and a sequence of URL
+tuples, where each tuple contains a string representing the URL endpoint for the
+page as the first item, and the layout fragment to associate with that URL as
+the second. The layout fragment can either be an instance of Dash's `Component`
+class (such as an `html.Div`) or a callable that returns a `Component` instance,
+such as the function `get_layout` in the above snippet. This callable should
+take a variable number of keyword arguments, as any query parameters present in
+the URL will be passed into the layout callable as keyword arguments. eg:
+
+```python
+def get_layout(**query_params):
+    param1_value = query_params.get("param1", "param1 not provided")
+    param2_value = query_params.get("param2", "param1 not provided")
+    return html.Div([param1_value, param2_value])
+```
+
+Note that the URL endpoints will be automatically prefixed with Dash's
+'routes_pathname_prefix' parameter, so when specifying internal URL links within
+your layout, you will want to use `util.get_url` which prefixes the URL path for
+you.
+
+
 ## Running Your App
 
 Slapdash comes with two convenience scripts for running your project in

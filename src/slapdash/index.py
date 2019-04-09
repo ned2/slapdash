@@ -18,8 +18,8 @@ urls = (
 
 # Ordered iterable of navbar items: tuples of `(route, display)`, where `route`
 # is a string corresponding to path of the route (will be prefixed with
-# URL_BASE_PATHNAME) and 'display' is a valid value for the `children` keyword
-# argument for a Dash component (ie a Dash Component or a string).
+# 'routes_pathname_prefix') and 'display' is a valid value for the `children`
+# keyword argument for a Dash component (ie a Dash Component or a string).
 nav_items = (
     ("character-counter", html.Div([fa("fas fa-keyboard"), "Character Counter"])),
     ("page2", html.Div([fa("fas fa-chart-area"), "Page 2"])),

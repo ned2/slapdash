@@ -81,8 +81,8 @@ class DashRouter:
             elif isinstance(page, Component):
                 layout = page
             elif callable(page):
-                args = MultiDict(parse_qs(search.lstrip("?")))
-                layout = page(args=args)
+                kwargs = MultiDict(parse_qs(search.lstrip("?")))
+                layout = page(**kwargs)
                 if not isinstance(layout, Component):
                     msg = (
                         "Layout function must return a Dash Component.\n\n"
