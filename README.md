@@ -115,6 +115,18 @@ your layout, you will want to use `util.get_url` which prefixes the URL path for
 you.
 
 
+## Loading Spinners
+
+Slapdash comes with some CSS loading spinners built-in. In order to use them,
+simply add one of the classes `loader` or `loader-fade` to the component you
+want to be visually rendered as loading while it is waiting for a callback to
+complete. Both spinners will wait one second before being applied to avoid an
+unpleasant flickering effect for responsive callbacks. The `loader` spinner will
+hide the contents of the component and display a spinner, while the
+`loader-fade` will reduce the opacity of the component's contents and also
+display a spinner.
+
+
 ## Running Your App
 
 Slapdash comes with two convenience scripts for running your project in
