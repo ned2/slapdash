@@ -58,7 +58,9 @@ class DashRouter:
         app:   A Dash instance to associate the router with.
         urls:  Ordered iterable of routes: tuples of (route, layout). 'route' is a
                string corresponding to the URL path of the route (will be prefixed
-               with Dash's 'routes_pathname_prefix' and 'layout' is a Dash Component.
+               with Dash's 'routes_pathname_prefix' and 'layout' is a Dash Component
+               or callable that returns a Dash Component. The callable will also have
+               any URL query parameters passed in as keyword arguments.
         """
         self.routes = {get_url(route): layout for route, layout in urls}
 
