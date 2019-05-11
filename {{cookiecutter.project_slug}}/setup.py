@@ -4,14 +4,14 @@ from setuptools import setup, find_packages
 
 
 # Package meta-data.
-NAME = "slapdash"
-DESCRIPTION = "Boilerplate for bootstrapping scalable multi-page Dash applications"
+NAME = "{{ cookiecutter.project_name }}"
+DESCRIPTION = "{{ cookiecutter.project_short_description }}"
 
 # These can be set to None if you want to omit them
-URL = "https://github.com/ned2/slapdash"
-AUTHOR = "Ned Letcher"
-AUTHOR_EMAIL = "ned at nedned dot net"
-LICENSE = "MIT"
+URL = "{{ cookiecutter.project_url }}"
+AUTHOR = "{{ cookiecutter.full_name }}"
+AUTHOR_EMAIL = "{{ cookiecutter.email }}"
+LICENSE = "{{ cookiecutter.open_source_license }}"
 REQUIRES_PYTHON = ">=3.6.0"
 VERSION = None  # get this from __version__.py
 
@@ -64,6 +64,10 @@ setup(
     packages=find_packages("src"),
     package_dir={"": "src"},
     include_package_data=True,
-    scripts=["bin/run-slapdash-prod"],
-    entry_points={"console_scripts": ["run-slapdash-dev=slapdash.dev_cli:main"]},
+    scripts=["bin/run-{{ cookiecutter.project_slug }}-prod"],
+    entry_points={
+        "console_scripts": [
+            "run-{{ cookiecutter.project_slug }}-dev={{ cookiecutter.project_slug }}.dev_cli:main"
+        ]
+    },
 )

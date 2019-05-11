@@ -1,0 +1,81 @@
+/* Default link colours */
+a {color: #0275d8 !important}
+
+a:hover {color: #014c8c !important}
+
+#header a, #sidebar a {color: white !important;}
+
+#header, #sidebar {color: white}
+
+#header h1 {
+    margin-bottom: 0;
+    line-height: inherit;
+}
+
+#sidebar {height: 100vh}
+
+.nav-item {font-size: 1.1em}
+
+.nav-link.active, .nav-link:hover {text-decoration: underline}
+
+.brand i, .nav-link i {padding: 0 0.5rem}
+
+.brand a:hover{text-decoration: none}
+
+
+/*
+ * loading spinners
+ */
+
+
+/* This loader will hide the component and add a spinner after 1 second */
+*[data-dash-is-loading="true"].loader {
+    transition-delay: 1s;
+    transition-property: visibility;
+    visibility: hidden;
+}
+
+
+/* This loader will fade the component and add a spinner after 1 second */
+*[data-dash-is-loading="true"].loader-fade {
+    transition-delay: 1s;
+    transition-property: opacity;
+    transition-duration: 1s;
+    opacity: 0.6;
+}
+
+
+/* the spinner animation */
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+
+/* Animation that makes elements visible sharply at end of animation */ 
+@keyframes offset {
+    from {visibility: hidden;}
+    99% {visibility: hidden;}
+    to {visibility: visible;}
+}
+
+
+*[data-dash-is-loading="true"].loader::before,
+*[data-dash-is-loading="true"].loader-fade::before {
+    z-index: 9999;
+    visibility: visible;
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #999;
+    border-top-color: #222;
+    /* Wait for 1s before displaying spinner using 'offset' anomation This
+       avoids flickering when wait times are low. */ 
+    animation: offset 1s, spinner .6s linear infinite;
+}

@@ -46,15 +46,25 @@ change.
 
 _Note: Slapdash requires Python 3.6+_
 
-After cloning/downloading the repository, simply install Slapdash as a package
-into your target virtualenv:
+Slapdash is a Cookiecutter project. This means you first need to generate your
+own project from the Slapdash project template. 
 
-    $ pip install PATH_TO_SLAPDASH
+Install the latest Cookiecutter if you haven't installed it yet:
+
+    pip install -U cookiecutter
+
+Generate your project by running this command and following the prompts:
+
+    cookiecutter https://github.com/ned2/slapdash
+
+The resulting project is a Python packaget, which you then need to install like so:
+
+    $ pip install PATH_TO_PROJECT
 
 During development you will likely want to perform an editable install so that
 changes to the source code take immediate effect on the installed package.
 
-    $ pip install -e PATH_TO_SLAPDASH
+    $ pip install -e PATH_TO_PROJECT
     
 
 ## Usage
@@ -115,18 +125,31 @@ your layout, you will want to use `util.get_url` which prefixes the URL path for
 you.
 
 
+## Loading Spinners
+
+Slapdash comes with some CSS loading spinners built-in. In order to use them,
+simply add one of the classes `loader` or `loader-fade` to the component you
+want to be visually rendered as loading while it is waiting for a callback to
+complete. Both spinners will wait one second before being applied to avoid an
+unpleasant flickering effect for responsive callbacks. The `loader` spinner will
+hide the contents of the component and display a spinner, while the
+`loader-fade` will reduce the opacity of the component's contents and also
+display a spinner.
+
+
 ## Running Your App
 
-Slapdash comes with two convenience scripts for running your project in
+This project comes with two convenience scripts for running your project in
 development and production environments, or you can use your own WSGI server to
 run the app.
 
+
 ### run-slapdash-dev
 
-Installing Slapdash into your virtualenv will result into the `run-slapdash-dev`
-executable being installed into the same virtualenv. This command invokes your
-Dash app's `run_server` method, which in turn uses the Flask development server
-to run your app.
+Installing this package into your virtualenv will result into the
+`run-slapdash-dev` executable being installed into the same virtualenv. This
+command invokes your Dash app's `run_server` method, which in turn uses the
+Flask development server to run your app.
 
     $ run-slapdash-dev
 
@@ -139,15 +162,15 @@ want to set `--host 0.0.0.0`.
 ### run-slapdash-prod
 
 While convenient, the development webserver should *not* be used in
-production. Installing Slapdash will also result in the bash script
+production. Installing this package will also result in the bash script
 `run-slapdash-prod` being installed in your virtualenv. This is a wrapper around
 the `mod_wsgi-express` command, which streamlines use of the [mod_wsgi Apache
-module](https://pypi.org/project/mod_wsgi/) to run your your app. You will need
-to have installed Apache. See installation instructions in the [mod_wsgi
-documentation](https://pypi.org/project/mod_wsgi/) (Note that Slapdash uses the
-`pip install` method for installing mod_wsgi). Like its development counterpart,
-`run-slapdash-prod` takes a range of command line arguments, which can be
-discovered with the `--help` flag.
+module](https://pypi.org/project/mod_wsgi/) to run your your app. In addition to
+installing the `mod_wsgi` Python package, you will need to have installed
+Apache. See installation instructions in the [mod_wsgi
+documentation](https://pypi.org/project/mod_wsgi/). Like its development
+counterpart, `run-slapdash-prod` takes a range of command line arguments, which
+can be discovered with the `--help` flag.
 
     $ run-slapdash-prod
     
@@ -168,9 +191,10 @@ an Apache process (separate to any process already running and listening on port
 your app, and will also set up the Apache instance to serve your static assets
 much faster than would be the case through the Python worker processes.
 
-_Note:_ You will need to reinstall Slapdash in order for changes to the
-`run-slapdash-prod` script to take effect even if you installed Slapdash as an
+_Note:_ You will need to reinstall this package in order for changes to the
+`run-slapdash-prod` script to take effect even if you installed it as an
 editable install with (ie `pip install -e`).
+
 
 ### Running with a different WSGI Server
 
