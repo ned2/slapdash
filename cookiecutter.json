@@ -1,0 +1,9 @@
+{
+    "full_name": "Ned Letcher",
+    "email": "ned at nedned dot net",
+    "project_name": "Slapdash",
+    "project_url": "https://github.com/ned2/slapdash",    
+    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+    "project_short_description": "Boilerplate for bootstrapping scalable multi-page Dash applications.",
+    "open_source_license": ["MIT license", "BSD license", "ISC license", "Apache Software License 2.0", "GNU General Public License v3", "Not open source"]
+}

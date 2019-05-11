@@ -13,8 +13,10 @@ def create_flask(config_object=f"{__package__}.settings"):
     server.config.from_object(config_object)
 
     # load additional settings that will override the defaults in settings.py. eg
-    # $ export SLAPDASH_SETTINGS=/some/path/prod_settings.py
-    server.config.from_envvar("SLAPDASH_SETTINGS", silent=True)
+    # $ export {{ cookiecutter.project_slug.upper() }}_SETTINGS=/some/path/prod_settings.py
+    server.config.from_envvar(
+        "{{ cookiecutter.project_slug.upper() }}_SETTINGS", silent=True
+    )
 
     return server
 
