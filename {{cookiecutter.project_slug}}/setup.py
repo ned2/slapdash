@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 
 # Package meta-data.
-NAME = "{{ cookiecutter.project_name }}"
+NAME = "{{ cookiecutter.project_name }}".replace(" ", "_")
 DESCRIPTION = "{{ cookiecutter.project_short_description }}"
 
 # These can be set to None if you want to omit them
@@ -17,12 +17,10 @@ VERSION = None  # get this from __version__.py
 
 
 # What packages are required for this module to be executed?
-REQUIRED = ["dash>=0.40.0", "dash-bootstrap-components>=0.3.0", "click", "mod_wsgi"]
+REQUIRED = ["dash>=0.40.0", "dash-bootstrap-components>=0.3.0", "click"]
 
 # What packages are optional?
-EXTRAS = {
-    # "fancy feature": ["django"],
-}
+EXTRAS = {"prod": ["mod_wsgi"]}
 
 # get the absolute path to this file
 here = os.path.abspath(os.path.dirname(__file__))
