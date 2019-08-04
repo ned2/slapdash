@@ -62,7 +62,19 @@ setup(
     version=about["__version__"],
     packages=find_packages("src"),
     package_dir={"": "src"},
-    include_package_data=True,
+    package_data={
+        "": [
+            "assets/favicon.ico",
+            "assets/*.css",
+            "assets/*.js",
+            "assets/font-awesome/css/*.css",
+            "assets/font-awesome/webfonts/*.eot",
+            "assets/font-awesome/webfonts/*.svg",
+            "assets/font-awesome/webfonts/*.ttf",
+            "assets/font-awesome/webfonts/*.woff",
+            "assets/font-awesome/webfonts/*.woff2",
+        ]
+    },
     scripts=["bin/run-{{ cookiecutter.project_slug }}-prod"],
     entry_points={
         "console_scripts": [
