@@ -1,7 +1,8 @@
 repos:
--   repo: https://github.com/ambv/black
+-   repo: https://github.com/psf/black
     rev: stable
     hooks:
     - id: black
       language_version: python3
       exclude: ^{{cookiecutter.project_slug}}/src/{{cookiecutter.project_slug}}/exceptions.py
+      exclude: ^{{cookiecutter.project_slug}}/setup.py

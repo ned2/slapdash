@@ -4,13 +4,13 @@ from setuptools import setup, find_packages
 
 
 # Package meta-data.
-NAME = "{{ cookiecutter.project_name }}".replace(" ", "_")
+NAME = "{{ cookiecutter.project_name.replace(" ", "_") }}"
 DESCRIPTION = "{{ cookiecutter.project_short_description }}"
 
 # These can be set to None if you want to omit them
-URL = "{{ cookiecutter.project_url }}"
-AUTHOR = "{{ cookiecutter.full_name }}"
-AUTHOR_EMAIL = "{{ cookiecutter.email }}"
+URL = {{ '"{}"'.format(cookiecutter.project_url) or None }}
+AUTHOR = {{ '"{}"'.format(cookiecutter.full_name) or None }}
+AUTHOR_EMAIL = {{ '"{}"'.format(cookiecutter.email) or None }}
 LICENSE = "{{ cookiecutter.open_source_license }}"
 REQUIRES_PYTHON = ">=3.6.0"
 VERSION = None  # get this from __version__.py
