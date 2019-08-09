@@ -144,40 +144,41 @@ development and production environments, or you can use your own WSGI server to
 run the app.
 
 
-### run-slapdash-dev
+### Run Dev App 
 
-Installing this package into your virtualenv will result into the
-`run-slapdash-dev` executable being installed into the same virtualenv. This
+Installing this package into your virtualenv will result into the development
+executable being installed into your path when the virtualenv is activated. This
 command invokes your Dash app's `run_server` method, which in turn uses the
-Flask development server to run your app.
+Flask development server to run your app. The command is invoked as follows,
+with `proj_slug` being replaced by the value provided for this cookiecutter
+parameter.
 
-    $ run-slapdash-dev
+    $ run-project_slug-dev
 
 The script takes a couple of arguments optional parameters, which you can
-discover with the `--help`. You may need to set the port using the `--port`
+discover with the `--help` flag. You may need to set the port using the `--port`
 parameter. If you need to expose your app outside your local machine, you will
 want to set `--host 0.0.0.0`.
 
 
-### run-slapdash-prod
+### Run Prod App
 
 While convenient, the development webserver should *not* be used in
-production. Installing this package will also result in the bash script
-`run-slapdash-prod` being installed in your virtualenv. This is a wrapper around
-the `mod_wsgi-express` command, which streamlines use of the [mod_wsgi Apache
+production. Installing this package will also result in a production executable
+being installed in your virtualenv. This is a wrapper around the
+`mod_wsgi-express` command, which streamlines use of the [mod_wsgi Apache
 module](https://pypi.org/project/mod_wsgi/) to run your your app. In addition to
 installing the `mod_wsgi` Python package, you will need to have installed
 Apache. See installation instructions in the [mod_wsgi
-documentation](https://pypi.org/project/mod_wsgi/). Like its development
-counterpart, `run-slapdash-prod` takes a range of command line arguments, which
-can be discovered with the `--help` flag.
+documentation](https://pypi.org/project/mod_wsgi/). This script also takes a
+range of command line arguments, which can be discovered with the `--help` flag.
 
-    $ run-slapdash-prod
+    $ run-project_slug-prod
     
-`run-slapdash-prod` will also apply settings found in the module
-`slapdash.prod_settings` (or a custom Python file supplied with the `--settings`
-flag) and which take precedence over the same settings found in
-`slapdash.settings`.
+This script will also apply settings found in the module `{{
+cookiecutter.project_slug }}.prod_settings` (or a custom Python file supplied
+with the `--settings` flag) and which takes precedence over the same settings
+found in `{{ cookiecutter.project_slug }}.settings`.
 
 A notable advantage of using `mod_wsgi` over other WSGI servers is that we do
 not need to configure and run a web server separate to the WSGI server. When
@@ -185,24 +186,24 @@ using other WSGI servers (such as Gunicorn or uWSGI), you do not want to expose
 them directly to web requests from the outside world for two reasons: 1)
 incoming requests will not be buffered, exposing you to potential denial of
 service attacks, and 2) you will be serving your static assets via Dash's Flask
-instance, which is slow. `run-slapdash-prod` uses `mod_wsgi-express` to spin up
-an Apache process (separate to any process already running and listening on port
-80) that will buffer requests, passing them off to the worker processes running
-your app, and will also set up the Apache instance to serve your static assets
-much faster than would be the case through the Python worker processes.
+instance, which is slow. The production script uses `mod_wsgi-express` to spin
+up an Apache process (separate to any process already running and listening on
+port 80) that will buffer requests, passing them off to the worker processes
+running your app, and will also set up the Apache instance to serve your static
+assets much faster than would be the case through the Python worker processes.
 
 _Note:_ You will need to reinstall this package in order for changes to the
-`run-slapdash-prod` script to take effect even if you installed it as an
-editable install with (ie `pip install -e`).
+`run-{{ cookiecutter.project_slug }}-prod` script to take effect even if you
+installed its an editable install with (ie `pip install -e`).
 
 
 ### Running with a different WSGI Server
 
 You can easily run your app using a WSGI server of your choice (such as Gunicorn
-for example) with the `slapdash.wsgi` entry point (defined in `wsgi.py`) like
-so:
+for example) with the `{{ cookiecutter.project_slug }}.wsgi` entry point
+(defined in `wsgi.py`) like so:
 
-    $ gunicorn slapdash.wsgi
+    $ gunicorn {{ cookiecutter.project_slug }}.wsgi
 
 _Note:_ if you want to enable Dash's debug mode while running with a WSGI server,
 you'll need to export the `DASH_DEBUG` environment variable to `true`. See the
