@@ -175,10 +175,10 @@ range of command line arguments, which can be discovered with the `--help` flag.
 
     $ run-project_slug-prod
     
-This script will also apply settings found in the module `{{
-cookiecutter.project_slug }}.prod_settings` (or a custom Python file supplied
-with the `--settings` flag) and which takes precedence over the same settings
-found in `{{ cookiecutter.project_slug }}.settings`.
+This script will also apply settings found in the module 
+`project_slug.prod_settings` (or a custom Python file supplied with the 
+`--settings` flag) and which takes precedence over the same settings found in 
+`project_slug.settings`.
 
 A notable advantage of using `mod_wsgi` over other WSGI servers is that we do
 not need to configure and run a web server separate to the WSGI server. When
@@ -193,17 +193,17 @@ running your app, and will also set up the Apache instance to serve your static
 assets much faster than would be the case through the Python worker processes.
 
 _Note:_ You will need to reinstall this package in order for changes to the
-`run-{{ cookiecutter.project_slug }}-prod` script to take effect even if you
-installed its an editable install with (ie `pip install -e`).
+prod script to take effect even if you used an editable install
+(ie `pip install -e`).
 
 
 ### Running with a different WSGI Server
 
 You can easily run your app using a WSGI server of your choice (such as Gunicorn
-for example) with the `{{ cookiecutter.project_slug }}.wsgi` entry point
+for example) with the `project_slug.wsgi` entry point
 (defined in `wsgi.py`) like so:
 
-    $ gunicorn {{ cookiecutter.project_slug }}.wsgi
+    $ gunicorn project_slug.wsgi
 
 _Note:_ if you want to enable Dash's debug mode while running with a WSGI server,
 you'll need to export the `DASH_DEBUG` environment variable to `true`. See the
