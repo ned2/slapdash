@@ -26,12 +26,12 @@ This script runs your Dash app with mod_wsgi-express. Script options are:
 EOF
 }
 
-
+APP_MODULE={{ cookiecutter.project_slug }}
 SCRIPTPATH=$(cd $(dirname $0); pwd -P)
 echo $SCRIPTPATH
 PORT=8000
 PROCESSES=2
-SETTINGS_PATH=$(python -c "from slapdash import prod_settings; print(prod_settings.__file__)")
+SETTINGS_PATH=$(python -c "from ${APP_MODULE} import prod_settings; print(prod_settings.__file__)")
 
 
 # loop over all flags starting with '--' and processing them along with any
@@ -87,10 +87,10 @@ export SLAPDASH_SETTINGS=${SETTINGS_PATH}
 # Run Apache! 
 ${ECHO} mod_wsgi-express start-server \
         --application-type module \
-        --entry-point slapdash.wsgi \
+        --entry-point ${APP_MODULE}.wsgi \
         --port ${PORT} \
         ${DEBUGFLAGS} \
-        --url-alias assets ${SCRIPTPATH}/src/slapdash/assets \
+        --url-alias assets ${SCRIPTPATH}/src/${APP_MODULE}/assets \
         --processes ${PROCESSES} \
         --compress-responses \
         --isatty \
