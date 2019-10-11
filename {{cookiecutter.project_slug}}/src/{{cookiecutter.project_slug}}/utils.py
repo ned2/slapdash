@@ -23,7 +23,7 @@ def component(func):
         # remove className and style args from input kwargs so the component
         # function does not have to worry about clobbering them.
         className = kwargs.pop("className", None)
-        style = kwargs.pop("className", None)
+        style = kwargs.pop("style", None)
 
         # call the component function and get the result
         result = func(*args, **kwargs)
