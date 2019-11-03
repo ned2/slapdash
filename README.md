@@ -57,7 +57,7 @@ Generate your project by running this command and following the prompts:
 
     cookiecutter https://github.com/ned2/slapdash
 
-The resulting project is a Python packaget, which you then need to install like so:
+The resulting project is a Python package, which you then need to install like so:
 
     $ pip install PATH_TO_PROJECT
 
