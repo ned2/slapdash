@@ -2,4 +2,5 @@ ipdb
 ptpython
 black
 pre-commit
+pytest-cookies
 gunicorn
