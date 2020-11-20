@@ -1,5 +1,5 @@
 {
-    "project_name": "Slapdashed-App",
+    "project_name": "Slapdashed",
     "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
     "project_short_description": "A Plotly Dash-based dashboard.",
     "open_source_license": [

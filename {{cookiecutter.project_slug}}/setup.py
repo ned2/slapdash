@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 
 # Package meta-data.
-NAME = "{{ cookiecutter.project_name.replace(" ", "_") }}"
+NAME = "{{ cookiecutter.project_slug }}"
 DESCRIPTION = "{{ cookiecutter.project_short_description }}"
 
 # These can be set to None if you want to omit them
