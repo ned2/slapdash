@@ -9,7 +9,7 @@ def install_package(package):
     """Install the supplied package into the current environment."""
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
-    
+
 def bake_install_and_get_app_module(cookies, project_name="test_app"):
     """Bake the recipe, install the package, and return the `app` module"""
     result = cookies.bake(extra_context={"project_name": project_name})
@@ -29,18 +29,28 @@ def test_bake_project(cookies, project_name="test_app"):
     assert result.project.basename == project_name
 
 
-def test_baked_project_runs(cookies, dash_thread_server):
+def test_baked_app_routes(cookies, dash_thread_server):
     """Test that app in the baked project runs and all routes are accessible."""
     app_module = bake_install_and_get_app_module(cookies)
+    app = app_module.index.app
+    router = app_module.index.router
+    router_callback = app.callback_map.get(
+        f"{router.content_component_id}.children", None
+    )
     dash_thread_server.start(app_module.app)
+
+    assert router_callback is not None and router_callback["inputs"] == [
+        {"id": router.location_component_id, "property": "pathname"},
+        {"id": router.location_component_id, "property": "search"},
+    ], "A registered router was not detected."
 
     for route, _layout in app_module.index.urls:
         url = f"{dash_thread_server.url}/{route}"
-        assert dash_thread_server.accessible(url), f"Loading route '{route}' failed" 
-    
+        assert dash_thread_server.accessible(url), f"Loading route '{route}' failed"
+
 
 @pytest.mark.webdriver
-def test_baked_project_runs_webdriver(cookies, dash_duo):
+def test_baked_app_frontend(cookies, dash_duo):
     """Test that the Dash app in the baked project runs."""
     app_module = bake_install_and_get_app_module(cookies)
     dash_duo.start_server(app_module.app)
@@ -49,4 +59,3 @@ def test_baked_project_runs_webdriver(cookies, dash_duo):
     # TODO:
     # - add tests to check for presence of main content ID element
     # - add tests to check for all css/js/png/jpg/jpeg/svg present being reachable
-

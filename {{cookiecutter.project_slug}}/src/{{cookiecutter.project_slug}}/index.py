@@ -1,7 +1,8 @@
 import dash_html_components as html
 
 from .app import app
-from .utils import DashRouter, DashNavBar
+from .router import DashRouter
+from .utils import DashNavBar
 from .pages import character_counter, page2, page3
 from .components import fa
 
@@ -27,4 +28,6 @@ nav_items = (
 )
 
 router = DashRouter(app, urls)
+router.register()
+
 navbar = DashNavBar(app, nav_items)
