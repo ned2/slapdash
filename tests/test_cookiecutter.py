@@ -2,6 +2,8 @@ import subprocess
 import sys
 from importlib import import_module, invalidate_caches
 
+import pytest
+
 
 def install_package(package):
     """Install the supplied package into the current environment."""
@@ -37,9 +39,7 @@ def test_baked_project_runs(cookies, dash_thread_server):
         assert dash_thread_server.accessible(url), f"Loading route '{route}' failed" 
     
 
-# TODO: this needs to be parameterised to only be run when
-# some kind of webdriver flag is passed to not make the basic tests rely
-# on having a webdriver installed
+@pytest.mark.webdriver
 def test_baked_project_runs_webdriver(cookies, dash_duo):
     """Test that the Dash app in the baked project runs."""
     app_module = bake_install_and_get_app_module(cookies)
@@ -49,6 +49,4 @@ def test_baked_project_runs_webdriver(cookies, dash_duo):
     # TODO:
     # - add tests to check for presence of main content ID element
     # - add tests to check for all css/js/png/jpg/jpeg/svg present being reachable
-    
-
 

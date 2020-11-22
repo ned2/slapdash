@@ -4,4 +4,3 @@ dash[testing]
 black
 pre-commit
 gunicorn
-
