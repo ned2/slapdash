@@ -27,13 +27,14 @@ def test_bake_project(cookies, project_name="test_app"):
     assert result.project.basename == project_name
 
 
-# TODO: verify that this fails when app has an error (ie 500 response)
 def test_baked_project_runs(cookies, dash_thread_server):
-    """Test that the Dash app in the baked project runs."""
+    """Test that app in the baked project runs and all routes are accessible."""
     app_module = bake_install_and_get_app_module(cookies)
     dash_thread_server.start(app_module.app)
-    # TODO: use dash_thread_server.accessible() to check for each
-    # url from index.py
+
+    for route, _layout in app_module.index.urls:
+        url = f"{dash_thread_server.url}/{route}"
+        assert dash_thread_server.accessible(url), f"Loading route '{route}' failed" 
     
 
 # TODO: this needs to be parameterised to only be run when
