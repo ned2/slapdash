@@ -1,8 +1,7 @@
 import dash_html_components as html
 
-from .app import app
-from .router import DashRouter
-from .utils import DashNavBar
+from .app import app, router, navbar
+from .layouts import main_layout_header, main_layout_sidebar
 from .pages import character_counter, page2, page3
 from .components import fa
 
@@ -27,7 +26,12 @@ nav_items = (
     ("page3", html.Div([fa("fas fa-chart-line"), "Page 3"])),
 )
 
-router = DashRouter(app, urls)
+
+router.add_urls(urls)
 router.register()
 
-navbar = DashNavBar(app, nav_items)
+navbar.add_nav_items(nav_items)
+navbar.register()
+
+# configure the Dash instance's layout
+app.layout = main_layout_sidebar()

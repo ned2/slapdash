@@ -35,6 +35,10 @@ class DashRouter:
     def add_urls(self, urls):
         self.routes.update({self.get_url(route): layout for route, layout in urls})
 
+    def get_url(self, path):
+        """Expands an internal URL to include prefix the app is mounted at"""
+        return f"{self.app.config.routes_pathname_prefix}{path}"
+
     def register(self):
         @self.app.callback(
             Output(self.content_component_id, "children"),
@@ -70,7 +74,3 @@ class DashRouter:
                 )
                 raise InvalidLayoutError(msg)
             return layout
-
-    def get_url(self, path):
-        """Expands an internal URL to include prefix the app is mounted at"""
-        return f"{self.app.config.routes_pathname_prefix}{path}"

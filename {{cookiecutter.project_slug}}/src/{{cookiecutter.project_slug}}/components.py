@@ -3,8 +3,8 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 from flask import current_app as server
 
-from .utils import get_url, component
-
+from .utils import component
+from .app import router
 
 def fa(className):
     """A convenience component for adding Font Awesome icons"""
@@ -16,7 +16,7 @@ def make_brand(**kwargs):
     return html.Header(
         className="brand",
         children=dcc.Link(
-            href=get_url(""),
+            href=router.get_url(""),
             children=html.H1([fa("far fa-chart-bar"), server.config["TITLE"]]),
         ),
         **kwargs,

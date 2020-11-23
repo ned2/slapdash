@@ -10,12 +10,12 @@ def install_package(package):
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
 
-def bake_install_and_get_app_module(cookies, project_name="test_app"):
-    """Bake the recipe, install the package, and return the `app` module"""
+def bake_install_and_get_index_module(cookies, project_name="test_app"):
+    """Bake the recipe, install the package, and return the `index` module"""
     result = cookies.bake(extra_context={"project_name": project_name})
     install_package(result.project)
     invalidate_caches()
-    app_module = import_module(".app", package=project_name)
+    app_module = import_module(".index", package=project_name)
     return app_module
 
 
@@ -31,9 +31,9 @@ def test_bake_project(cookies, project_name="test_app"):
 
 def test_baked_app_routes(cookies, dash_thread_server):
     """Test that app in the baked project runs and all routes are accessible."""
-    app_module = bake_install_and_get_app_module(cookies)
-    app = app_module.index.app
-    router = app_module.index.router
+    index_module = bake_install_and_get_index_module(cookies)
+    app = index_module.app
+    router = index_module.router
     router_callback = app.callback_map.get(
         f"{router.content_component_id}.children", None
     )
@@ -52,10 +52,12 @@ def test_baked_app_routes(cookies, dash_thread_server):
 @pytest.mark.webdriver
 def test_baked_app_frontend(cookies, dash_duo):
     """Test that the Dash app in the baked project runs."""
-    app_module = bake_install_and_get_app_module(cookies)
+    index_module = bake_install_and_get_index_module(cookies)
+    router = index_module.router
     dash_duo.start_server(app_module.app)
 
     assert dash_duo.get_logs() == [], "browser console should contain no error"
+    dash_duo.wait_for_element_by_id(router.content_component_id)
     # TODO:
     # - add tests to check for presence of main content ID element
     # - add tests to check for all css/js/png/jpg/jpeg/svg present being reachable

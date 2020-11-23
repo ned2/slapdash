@@ -3,9 +3,7 @@ from functools import wraps
 from urllib.parse import parse_qs
 
 from dash import Dash
-from dash.dependencies import Output, Input
 from dash.development.base_component import Component
-from flask import current_app as server
 
 
 def component(func):
@@ -44,10 +42,10 @@ def component(func):
 def get_dash_args_from_flask_config(config):
     """Get a dict of Dash params that were specified """
     # all arg names less 'self'
-    dash_args = set(inspect.getfullargspec(dash.Dash.__init__).args[1:])
+    dash_args = set(inspect.getfullargspec(Dash.__init__).args[1:])
     return {key.lower(): val for key, val in config.items() if key.lower() in dash_args}
 
 
-def get_url(path):
-    """Expands an internal URL to include prefix the app is mounted at"""
-    return f"{server.config['ROUTES_PATHNAME_PREFIX']}{path}"
+# def get_url(path):
+#     """Expands an internal URL to include prefix the app is mounted at"""
+#     return f"{server.config['ROUTES_PATHNAME_PREFIX']}{path}"
