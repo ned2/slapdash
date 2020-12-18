@@ -111,7 +111,7 @@ class DashNavBar:
         app:        A Dash instance to associate the router with.
 
         nav_items:  Ordered iterable of navbar items: tuples of `(route, display)`,
-                    where `route` is a string corresponding to path of the route
+                    where `route` is either a string or list of strings corresponding to path(s) of the route
                     (will be prefixed with Dash's 'routes_pathname_prefix') and
                     'display' is a valid value for the `children` keyword argument
                     for a Dash component (ie a Dash Component or a string).
@@ -134,12 +134,38 @@ class DashNavBar:
         nav_items = []
         route_prefix = server.config["ROUTES_PATHNAME_PREFIX"]
         for i, (path, text) in enumerate(self.nav_items):
-            href = get_url(path)
-            active = (current_path == href) or (i == 0 and current_path == route_prefix)
-            nav_item = dbc.NavItem(dbc.NavLink(text, href=href, active=active))
-            nav_items.append(nav_item)
-        return html.Ul(nav_items, className="navbar-nav", **kwargs)
+            if isinstance(path, list):
+                navlinks = []
+                for nav_item in path:
+                    href = get_url(nav_item.route)
+                    active = (current_path == href) or (
+                        i == 0 and current_path == route_prefix
+                    )
+                    navlinks.append(
+                        dbc.DropdownMenuItem(
+                            dbc.NavLink(
+                                nav_item.display,
+                                href=href,
+                                active=active,
+                            ),
+                        )
+                    )
+                nav_item = dbc.DropdownMenu(
+                    navlinks,
+                    label=text,
+                    nav=True,
+                    direction="right",
+                    in_navbar=True,
+                )
 
+            else:
+                href = get_url(path)
+                active = (current_path == href) or (
+                    i == 0 and current_path == route_prefix
+                )
+                nav_item = dbc.NavItem(dbc.NavLink(text, href=href, active=active))
+            nav_items.append(nav_item)
+        return dbc.Nav(nav_items, className="navbar-nav", **kwargs)
 
 def get_dash_args_from_flask_config(config):
     """Get a dict of Dash params that were specified """
