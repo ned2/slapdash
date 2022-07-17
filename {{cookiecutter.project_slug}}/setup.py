@@ -11,7 +11,7 @@ DESCRIPTION = "{{ cookiecutter.project_short_description }}"
 URL = {{ '"{}"'.format(cookiecutter.project_url) or None }}
 AUTHOR = {{ '"{}"'.format(cookiecutter.full_name) or None }}
 AUTHOR_EMAIL = {{ '"{}"'.format(cookiecutter.email) or None }}
-LICENSE = "{{ cookiecutter.open_source_license }}"
+LICENSE = None
 REQUIRES_PYTHON = ">=3.6.0"
 VERSION = None  # get this from __version__.py
 
