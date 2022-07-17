@@ -1,4 +1,4 @@
-import dash_html_components as _html
+from dash import html as _html
 
 
 def page_not_found(pathname):

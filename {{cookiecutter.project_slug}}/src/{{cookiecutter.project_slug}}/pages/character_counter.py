@@ -1,15 +1,15 @@
 from collections import Counter
 from textwrap import dedent
 
-import dash_core_components as dcc
-import dash_html_components as html
-import dash_bootstrap_components as dbc
+import dash
+from dash import dcc, html, callback
 from dash.dependencies import Input, State, Output
+import dash_bootstrap_components as dbc
 
-from ..app import app
+dash.register_page(__name__, path="/")
 
 
-def get_layout(**kwargs):
+def layout(**kwargs):
     initial_text = kwargs.get("text", "Type some text into me!")
 
     # Note that if you need to access multiple values of an argument, you can
@@ -26,14 +26,12 @@ def get_layout(**kwargs):
                     """
                 )
             ),
-            dbc.FormGroup(
-                dbc.Textarea(
-                    id="text-input",
-                    value=initial_text,
-                    style={"width": "40em", "height": "5em"},
-                )
+            dbc.Textarea(
+                id="text-input",
+                value=initial_text,
+                style={"width": "40em", "height": "5em"},
             ),
-            dbc.FormGroup(
+            html.Div(
                 [
                     dbc.Label("Sort by:"),
                     dbc.RadioItems(
@@ -46,7 +44,7 @@ def get_layout(**kwargs):
                     ),
                 ]
             ),
-            dbc.FormGroup(
+            html.Div(
                 [
                     dbc.Label("Normalize character case?"),
                     dbc.RadioItems(
@@ -64,7 +62,7 @@ def get_layout(**kwargs):
     )
 
 
-@app.callback(
+@callback(
     Output("graph", "figure"),
     [
         Input("text-input", "value"),

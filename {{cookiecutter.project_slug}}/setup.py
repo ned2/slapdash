@@ -11,13 +11,13 @@ DESCRIPTION = "{{ cookiecutter.project_short_description }}"
 URL = {{ '"{}"'.format(cookiecutter.project_url) or None }}
 AUTHOR = {{ '"{}"'.format(cookiecutter.full_name) or None }}
 AUTHOR_EMAIL = {{ '"{}"'.format(cookiecutter.email) or None }}
-LICENSE = "{{ cookiecutter.open_source_license }}"
+LICENSE = None
 REQUIRES_PYTHON = ">=3.6.0"
 VERSION = None  # get this from __version__.py
 
 
 # What packages are required for this module to be executed?
-REQUIRED = ["dash>=0.40.0", "dash-bootstrap-components>=0.3.0", "click"]
+REQUIRED = ["dash>=2.5.0", "dash-bootstrap-components>=1.0.0", "click"]
 
 # What packages are optional?
 EXTRAS = {"prod": ["mod_wsgi"]}

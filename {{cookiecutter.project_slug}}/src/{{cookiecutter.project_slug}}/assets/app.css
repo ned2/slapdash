@@ -1,0 +1,7 @@
+#header a, #sidebar a {color: white !important;}
+
+.nav-link.active, .nav-link:hover {text-decoration: underline}
+
+.brand i, .nav-link i {padding: 0 0.5rem}
+
+.brand a {text-decoration: none}

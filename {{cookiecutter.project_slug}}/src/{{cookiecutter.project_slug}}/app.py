@@ -1,18 +1,17 @@
-from . import create_flask, create_dash
+from dash import Dash
+from flask import Flask
+import dash_bootstrap_components as dbc
 from .layouts import main_layout_header, main_layout_sidebar
+from . import settings
 
 
-# The Flask instance
-server = create_flask()
+server = Flask(__package__)
 
-# The Dash instance
-app = create_dash(server)
+app = Dash(
+    __package__,
+    use_pages=True,
+    title=settings.TITLE,
+    external_stylesheets=[dbc.themes.BOOTSTRAP],
+)
 
-
-# Push an application context so we can use Flask's 'current_app'
-with server.app_context():
-    # load the rest of our Dash app
-    from . import index
-
-    # configure the Dash instance's layout
-    app.layout = main_layout_sidebar()
+app.layout = main_layout_sidebar

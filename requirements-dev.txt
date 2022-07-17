@@ -1,5 +1,6 @@
-ipdb
-ptpython
+cookiecutter
+pytest-cookies
+dash[testing]
 black
 pre-commit
 gunicorn
