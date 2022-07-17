@@ -1,16 +1,17 @@
-from . import create_flask, create_dash
-from .router import DashRouter
-from .navbar import DashNavBar
+from dash import Dash
+from flask import Flask
+import dash_bootstrap_components as dbc
+from .layouts import main_layout_header, main_layout_sidebar
+from . import settings
 
 
-# The Flask instance
-server = create_flask()
+server = Flask(__package__)
 
-# The Dash instance
-app = create_dash(server)
+app = Dash(
+    __package__,
+    use_pages=True,
+    title=settings.TITLE,
+    external_stylesheets=[dbc.themes.BOOTSTRAP],
+)
 
-# The URL router 
-router = DashRouter(app)
-
-# The Navigation Bar
-navbar = DashNavBar(app, router)
+app.layout = main_layout_sidebar

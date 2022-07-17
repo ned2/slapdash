@@ -37,15 +37,3 @@ def component(func):
         return result
 
     return function_wrapper
-
-
-def get_dash_args_from_flask_config(config):
-    """Get a dict of Dash params that were specified """
-    # all arg names less 'self'
-    dash_args = set(inspect.getfullargspec(Dash.__init__).args[1:])
-    return {key.lower(): val for key, val in config.items() if key.lower() in dash_args}
-
-
-# def get_url(path):
-#     """Expands an internal URL to include prefix the app is mounted at"""
-#     return f"{server.config['ROUTES_PATHNAME_PREFIX']}{path}"

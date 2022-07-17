@@ -1,10 +1,10 @@
-import dash_core_components as dcc
-import dash_html_components as html
+import dash
+from dash import dcc, html
 import dash_bootstrap_components as dbc
-from flask import current_app as server
 
 from .utils import component
-from .app import router
+from . import settings
+
 
 def fa(className):
     """A convenience component for adding Font Awesome icons"""
@@ -16,35 +16,49 @@ def make_brand(**kwargs):
     return html.Header(
         className="brand",
         children=dcc.Link(
-            href=router.get_url(""),
-            children=html.H1([fa("far fa-chart-bar"), server.config["TITLE"]]),
+            href="/",
+            children=html.H1([fa("fa-solid fa-chart-column"), settings.TITLE]),
         ),
         **kwargs,
     )
 
 
+# TODO: Navbar vs Nav?
+
 @component
 def make_header(**kwargs):
-    return dbc.Navbar(
-        id="header",
-        className="sticky-top",
-        color="dark",
-        dark=True,
-        children=[
-            make_brand(),
-            html.Ul(
-                id=server.config["NAVBAR_CONTAINER_ID"], className="navbar-nav ml-auto"
-            ),
-        ],
-        **kwargs,
+    return html.Div(
+        dbc.Navbar(
+            id="header",
+            className="sticky-top",
+            color="dark",
+            dark=True,
+            children=[
+                make_brand(),
+                html.Ul(id="navbar", className="navbar-nav ml-auto"),
+            ],
+        )
+        ** kwargs,
     )
 
 
 @component
 def make_sidebar(**kwargs):
-    return html.Nav(
-        id=f"sidebar",
-        className="nav navbar-dark bg-dark flex-column align-items-start",
-        children=[make_brand(), html.Div(id=server.config["NAVBAR_CONTAINER_ID"])],
+    return html.Div(
+        dbc.Nav(
+            [
+                dbc.NavLink(
+                    [
+                        html.Div(page["name"], className="ms-2"),
+                    ],
+                    href=page["path"],
+                    active="exact",
+                )
+                for page in dash.page_registry.values()
+            ],
+            vertical=True,
+            pills=True,
+            className="nav bg-dark navbar-dark",
+        ),
         **kwargs,
     )
