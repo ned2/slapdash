@@ -4,20 +4,20 @@ from setuptools import setup, find_packages
 
 
 # Package meta-data.
-NAME = "baz"
-DESCRIPTION = "A Plotly Dash-based dashboard."
+NAME = "{{ cookiecutter.project_name.replace(" ", "_") }}"
+DESCRIPTION = "{{ cookiecutter.project_short_description }}"
 
 # These can be set to None if you want to omit them
-URL = "None"
-AUTHOR = "None"
-AUTHOR_EMAIL = "None"
-LICENSE = "MIT license"
+URL = {{ '"{}"'.format(cookiecutter.project_url) or None }}
+AUTHOR = {{ '"{}"'.format(cookiecutter.full_name) or None }}
+AUTHOR_EMAIL = {{ '"{}"'.format(cookiecutter.email) or None }}
+LICENSE = "{{ cookiecutter.open_source_license }}"
 REQUIRES_PYTHON = ">=3.6.0"
 VERSION = None  # get this from __version__.py
 
 
 # What packages are required for this module to be executed?
-REQUIRED = ["dash>=2.5", "dash-bootstrap-components>=0.3.0", "click"]
+REQUIRED = ["dash>=2.5.0", "dash-bootstrap-components>=1.0.0", "click"]
 
 # What packages are optional?
 EXTRAS = {"prod": ["mod_wsgi"]}
@@ -40,7 +40,7 @@ except FileNotFoundError:
 about = {}
 if not VERSION:
     with open(
-        os.path.join(here, "src", "baz", "__version__.py")
+        os.path.join(here, "src", "{{ cookiecutter.project_slug }}", "__version__.py")
     ) as f:
         exec(f.read(), about)
 else:
@@ -67,18 +67,18 @@ setup(
             "assets/favicon.ico",
             "assets/*.css",
             "assets/*.js",
-            "assets/fontawesome/css/*.css",
-            "assets/fontawesome/webfonts/*.eot",
-            "assets/fontawesome/webfonts/*.svg",
-            "assets/fontawesome/webfonts/*.ttf",
-            "assets/fontawesome/webfonts/*.woff",
-            "assets/fontawesome/webfonts/*.woff2",
+            "assets/font-awesome/css/*.css",
+            "assets/font-awesome/webfonts/*.eot",
+            "assets/font-awesome/webfonts/*.svg",
+            "assets/font-awesome/webfonts/*.ttf",
+            "assets/font-awesome/webfonts/*.woff",
+            "assets/font-awesome/webfonts/*.woff2",
         ]
     },
-    scripts=["bin/run-baz-prod"],
+    scripts=["bin/run-{{ cookiecutter.project_slug }}-prod"],
     entry_points={
         "console_scripts": [
-            "run-baz-dev=baz.dev_cli:main"
+            "run-{{ cookiecutter.project_slug }}-dev={{ cookiecutter.project_slug }}.dev_cli:main"
         ]
     },
 )
