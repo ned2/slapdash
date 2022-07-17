@@ -23,27 +23,8 @@ def make_brand(**kwargs):
     )
 
 
-# TODO: Navbar vs Nav?
-
 @component
-def make_header(**kwargs):
-    return html.Div(
-        dbc.Navbar(
-            id="header",
-            className="sticky-top",
-            color="dark",
-            dark=True,
-            children=[
-                make_brand(),
-                html.Ul(id="navbar", className="navbar-nav ml-auto"),
-            ],
-        )
-        ** kwargs,
-    )
-
-
-@component
-def make_sidebar(**kwargs):
+def make_navbar(vertical=False, **kwargs):
     return html.Div(
         dbc.Nav(
             [
@@ -56,7 +37,7 @@ def make_sidebar(**kwargs):
                 )
                 for page in dash.page_registry.values()
             ],
-            vertical=True,
+            vertical=vertical,
             pills=True,
             className="nav bg-dark navbar-dark",
         ),
