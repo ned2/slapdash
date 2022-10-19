@@ -6,7 +6,7 @@ from dash import dcc, html, callback
 from dash.dependencies import Input, State, Output
 import dash_bootstrap_components as dbc
 
-dash.register_page(__name__, path="/")
+dash.register_page(__name__, path="/", name="Character Counter")
 
 
 def layout(**kwargs):
