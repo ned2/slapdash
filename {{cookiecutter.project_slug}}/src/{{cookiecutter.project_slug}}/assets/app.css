@@ -1,3 +1,8 @@
+#sidebar {
+    position: sticky;
+    top: 0;
+}
+
 #header a, #sidebar a {color: white !important;}
 
 .nav-link.active, .nav-link:hover {text-decoration: underline}
