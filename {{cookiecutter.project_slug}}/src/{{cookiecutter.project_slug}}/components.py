@@ -12,7 +12,7 @@ def fa(className):
 
 
 @component
-def make_brand(**kwargs):
+def Brand(**kwargs):
     return html.Header(
         className="brand",
         children=dcc.Link(
@@ -24,7 +24,7 @@ def make_brand(**kwargs):
 
 
 @component
-def make_navbar(vertical=False, **kwargs):
+def Navbar(vertical=False, **kwargs):
     return html.Div(
         dbc.Nav(
             [

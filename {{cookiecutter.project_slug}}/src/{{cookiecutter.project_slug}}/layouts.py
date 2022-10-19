@@ -6,7 +6,7 @@ import dash
 from dash import dcc, html
 import dash_bootstrap_components as dbc
 
-from .components import make_brand, make_navbar
+from .components import Brand, Navbar
 
 
 def main_layout_header():
@@ -15,8 +15,8 @@ def main_layout_header():
         [
             dbc.Row(
                 [
-                    dbc.Col(make_brand(), width="auto"),
-                    dbc.Col(make_navbar(vertical=False), width="auto"),
+                    dbc.Col(Brand(), width="auto"),
+                    dbc.Col(Navbar(vertical=False), width="auto"),
                 ],
                 id="header",
                 className="bg-dark justify-content-between align-items-center",
@@ -35,7 +35,7 @@ def main_layout_sidebar():
                 children=dbc.Row(
                     [
                         dbc.Col(
-                            [make_brand(), make_navbar(vertical=True)],
+                            [Brand(), Navbar(vertical=True)],
                             width=2,
                             className="px-0 bg-dark",
                             style={"height": "100vh"},
